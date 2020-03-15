@@ -2,7 +2,10 @@ package cz.muni.pv239.spotifymer.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.spotify.android.appremote.api.ConnectionParams
 import cz.muni.pv239.spotifymer.R
+import cz.muni.pv239.spotifymer.credentials.CLIENT_ID
+import cz.muni.pv239.spotifymer.credentials.REDIRECT_URI
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // We will start writing our code here.
+        val connectionParams = ConnectionParams.Builder(CLIENT_ID)
+            .setRedirectUri(REDIRECT_URI)
+            .showAuthView(true)
+            .build()
     }
 
     private fun connected() {
