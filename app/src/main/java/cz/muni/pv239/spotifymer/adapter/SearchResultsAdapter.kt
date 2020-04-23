@@ -11,11 +11,11 @@ import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.model.SearchResult
 
-class SearchResultsAdapter (private var results: MutableList<SearchResult>, private val context: Context) :
+class SearchResultsAdapter (private var results: List<SearchResult>, private val context: Context) :
     RecyclerView.Adapter<SearchResultsCardHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsCardHolder {
-        return SearchResultsCardHolder(LayoutInflater.from(context).inflate(R.layout.search_card, parent, false))
+        return SearchResultsCardHolder(LayoutInflater.from(parent.context).inflate(R.layout.search_card, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -27,9 +27,9 @@ class SearchResultsAdapter (private var results: MutableList<SearchResult>, priv
         holder.title.text = results[position].title
     }
 
-    fun changeData(newData: MutableList<SearchResult>) {
+    fun changeData(newData: List<SearchResult>) {
         results = newData
-        this.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 }
 

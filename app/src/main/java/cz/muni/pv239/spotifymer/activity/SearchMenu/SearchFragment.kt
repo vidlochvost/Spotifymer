@@ -45,12 +45,8 @@ class SearchFragment : Fragment() {
 
         searchButton.setOnClickListener {
             val search = searchBar.text.toString()
-            val searchResult = api.search.searchArtist(search).complete()
-            val temp: MutableList<SearchResult> = ArrayList(10)
-            for (i in 0..9) {
-                temp.add(SearchResult(searchResult[i].images[2].url, searchResult[i].name))
-            }
-            //adapter.changeData(temp)
+            val searchResult = api.search.searchArtist(search).complete().map { SearchResult(it.images.getOrNull(2)?.url, it.name) }
+            adapter.changeData(searchResult)
         }
     }
 
