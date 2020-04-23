@@ -19,14 +19,14 @@ class RecommendationsListAdapter (private val playlists: ArrayList<RecommendedPl
         return PlaylistCardHolder(LayoutInflater.from(context).inflate(R.layout.playlist_card, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return playlists.size
-    }
-
     override fun onBindViewHolder(holder: PlaylistCardHolder, position: Int) {
         //loading image from url using picasso
         Picasso.get().load(playlists[position].imageUrl).into(holder.coverImage)
         holder.playlistNme.text = playlists[position].name
+    }
+
+    override fun getItemCount(): Int {
+        return playlists.size
     }
 }
 

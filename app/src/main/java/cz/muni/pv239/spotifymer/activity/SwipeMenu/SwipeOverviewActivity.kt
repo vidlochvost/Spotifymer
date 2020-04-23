@@ -8,11 +8,13 @@ import cz.muni.pv239.spotifymer.adapter.ViewPageAdapter
 
 class SwipeOverviewActivity : AppCompatActivity() {
 
+    private lateinit var viewPager: ViewPager2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_swipe_overview)
 
-        val viewPager = findViewById<ViewPager2>(R.id.root_view_pager)
+        viewPager = findViewById(R.id.root_view_pager)
         viewPager.adapter = ViewPageAdapter(this)
     }
 }
