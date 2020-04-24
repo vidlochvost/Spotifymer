@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -9,9 +9,11 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="colorSurface">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="textAppearanceBody1">@color/colorOnPrimary</item>
     </style>
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">

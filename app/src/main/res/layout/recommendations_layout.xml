@@ -12,7 +12,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="10dp"
         android:text="@string/recommend"
-        app:cornerRadius="20dp" />
+        app:cornerRadius="20dp"
+        android:padding="@dimen/padding_medium"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlist_recycler_view"
