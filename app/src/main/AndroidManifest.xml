@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SearchMenu.SearchActivity" />
+        <activity android:name=".activity.SearchMenu.NewPlaylistActivity" />
         <activity android:name=".activity.SwipeMenu.SwipeOverviewActivity" />
         <activity android:name=".activity.SwipeMenu.TopArtistsFragment" />
-        <activity android:name=".activity.SwipeMenu.RecommendationsFragment" />
+        <activity android:name=".activity.SwipeMenu.PlaylistsFragment" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

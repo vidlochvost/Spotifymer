@@ -2,9 +2,11 @@ package cz.muni.pv239.spotifymer.activity.SearchMenu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import cz.muni.pv239.spotifymer.R
+import cz.muni.pv239.spotifymer.model.PlaylistAttributes
 
-class SearchActivity : AppCompatActivity() {
+class NewPlaylistActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +18,7 @@ class SearchActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.content_layout, SearchAttributeFragment())
+            .add(R.id.content_layout, RecommendMenuFragment())
             .commit()
     }
 

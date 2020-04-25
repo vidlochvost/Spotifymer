@@ -3,7 +3,7 @@ package cz.muni.pv239.spotifymer.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import cz.muni.pv239.spotifymer.activity.SwipeMenu.RecommendationsFragment
+import cz.muni.pv239.spotifymer.activity.SwipeMenu.PlaylistsFragment
 import cz.muni.pv239.spotifymer.activity.SwipeMenu.TopArtistsFragment
 
 class ViewPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
@@ -13,7 +13,7 @@ class ViewPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> RecommendationsFragment()
+            0 -> PlaylistsFragment()
             else -> TopArtistsFragment()
         }
     }

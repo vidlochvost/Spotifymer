@@ -9,14 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
-import cz.muni.pv239.spotifymer.model.RecommendedPlaylist
+import cz.muni.pv239.spotifymer.model.Playlist
 
-class RecommendationsListAdapter (private val playlists: ArrayList<RecommendedPlaylist>, private val context: Context) :
+class PlaylistListAdapter (private val playlists: List<Playlist>) :
     RecyclerView.Adapter<PlaylistCardHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistCardHolder {
-        return PlaylistCardHolder(LayoutInflater.from(context).inflate(R.layout.playlist_card, parent, false))
+        return PlaylistCardHolder(LayoutInflater.from(parent.context).inflate(R.layout.playlist_card, parent, false))
     }
 
     override fun onBindViewHolder(holder: PlaylistCardHolder, position: Int) {
