@@ -13,12 +13,40 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/search_artists_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/artist"/>
+
+            <Button
+                android:id="@+id/search_tracks_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/track"/>
+
+            <Button
+                android:id="@+id/search_genres_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genre"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/outlinedTextField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
             >
 
             <ImageView
@@ -47,7 +75,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,7 +1,6 @@
 package cz.muni.pv239.spotifymer.model
 
 import androidx.lifecycle.ViewModel
-import com.adamratzman.spotify.endpoints.public.TuneableTrackAttribute
 
 class PlaylistAttributes: ViewModel() {
 
@@ -25,7 +24,7 @@ class PlaylistAttributes: ViewModel() {
         tunableAttributes.energy.value = value
     }
 
-    fun getEnergy(): Float {
-        return tunableAttributes.energy.value
+    fun getEnergy(): Energy {
+        return tunableAttributes.energy
     }
 }

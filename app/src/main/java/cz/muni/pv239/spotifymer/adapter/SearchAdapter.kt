@@ -12,11 +12,13 @@ import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.model.PlaylistAttributes
 import cz.muni.pv239.spotifymer.model.Search
 
-class SearchAdapter (private var results: List<Search>, private var model: PlaylistAttributes) :
+class SearchAdapter(private var results: List<Search>, private var model: PlaylistAttributes) :
     RecyclerView.Adapter<SearchCardHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchCardHolder {
-        return SearchCardHolder(LayoutInflater.from(parent.context).inflate(R.layout.search_card, parent, false))
+        return SearchCardHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.search_card, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -24,7 +26,11 @@ class SearchAdapter (private var results: List<Search>, private var model: Playl
     }
 
     override fun onBindViewHolder(holder: SearchCardHolder, position: Int) {
-        Picasso.get().load(results[position].imgUrl).into(holder.image)
+        if (results[position].imgUrl == null) {
+            holder.image.setImageResource(R.drawable.genre)
+        } else {
+            Picasso.get().load(results[position].imgUrl).into(holder.image)
+        }
         holder.title.text = results[position].title
         holder.addButton.setOnClickListener {
             model.addSearch(results[position])

@@ -26,7 +26,11 @@ class SearchAttributesListAdapter(private var model: PlaylistAttributes) :
     }
 
     override fun onBindViewHolder(holder: SearchAttributesCardHolder, position: Int) {
-        Picasso.get().load(model.getSearches()[position].imgUrl).into(holder.image)
+        if (model.getSearches()[position].imgUrl == null) {
+            holder.image.setImageResource(R.drawable.genre)
+        } else {
+            Picasso.get().load(model.getSearches()[position].imgUrl).into(holder.image)
+        }
         holder.title.text = model.getSearches()[position].title
         holder.type.text = model.getSearches()[position].type
         holder.removeButton.setOnClickListener {
