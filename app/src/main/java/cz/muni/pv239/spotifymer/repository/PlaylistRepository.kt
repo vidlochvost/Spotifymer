@@ -12,10 +12,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-class PlaylistRepository(application: Application) : CoroutineScope {
-
-    override val coroutineContext: CoroutineContext
-        get() = Main
+class PlaylistRepository(application: Application) {
 
     private var playlistDao: PlaylistDao?
 

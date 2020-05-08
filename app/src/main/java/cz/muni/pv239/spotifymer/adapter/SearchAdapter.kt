@@ -9,10 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
-import cz.muni.pv239.spotifymer.model.PlaylistAttributes
 import cz.muni.pv239.spotifymer.model.Search
+import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 
-class SearchAdapter(private var results: List<Search>, private var model: PlaylistAttributes) :
+class SearchAdapter(
+    private val searchList: List<Search>?,
+    private val searchViewModel: SearchViewModel?
+) :
     RecyclerView.Adapter<SearchCardHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchCardHolder {
@@ -22,24 +25,19 @@ class SearchAdapter(private var results: List<Search>, private var model: Playli
     }
 
     override fun getItemCount(): Int {
-        return results.size
+        return searchList?.size!!
     }
 
     override fun onBindViewHolder(holder: SearchCardHolder, position: Int) {
-        if (results[position].imgUrl == null) {
+        if (searchList?.get(position)?.imgUrl == null) {
             holder.image.setImageResource(R.drawable.genre)
         } else {
-            Picasso.get().load(results[position].imgUrl).into(holder.image)
+            Picasso.get().load(searchList[position].imgUrl).into(holder.image)
         }
-        holder.title.text = results[position].title
+        holder.title.text = searchList?.get(position)?.title
         holder.addButton.setOnClickListener {
-            model.addSearch(results[position])
+            searchViewModel?.addSearch(searchList?.get(position)!!)
         }
-    }
-
-    fun changeData(newData: List<Search>) {
-        results = newData
-        notifyDataSetChanged()
     }
 }
 

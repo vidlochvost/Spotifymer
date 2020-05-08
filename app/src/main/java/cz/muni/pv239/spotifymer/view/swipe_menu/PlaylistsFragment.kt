@@ -48,7 +48,7 @@ class PlaylistsFragment : Fragment() {
 
         this.playlistViewModel
             ?.getPlaylists()
-            ?.observe(viewLifecycleOwner, Observer { playlists -> renderRecyclerView(playlists) })
+            ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
 
         binding.recommendButton.setOnClickListener {
             val intent = Intent(context, NewPlaylistActivity::class.java)
@@ -58,7 +58,7 @@ class PlaylistsFragment : Fragment() {
     }
 
     private fun renderRecyclerView(playlists: List<Playlist>?) {
-        adapter = PlaylistListAdapter(playlists, trackViewModel, playlistViewModel)
+        adapter = PlaylistListAdapter(playlists, playlistViewModel)
         val layoutManager = LinearLayoutManager(this.context)
         binding.playlistRecyclerView.layoutManager = layoutManager
         binding.playlistRecyclerView.adapter = adapter

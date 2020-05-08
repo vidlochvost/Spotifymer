@@ -1,48 +1,47 @@
 package cz.muni.pv239.spotifymer.view.search_menu
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adamratzman.spotify.SpotifyAppApi
 
 import cz.muni.pv239.spotifymer.R
-import cz.muni.pv239.spotifymer.adapter.SearchAttributesListAdapter
+import cz.muni.pv239.spotifymer.adapter.SelectedSearchAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentRecommendMenuBinding
-import cz.muni.pv239.spotifymer.model.PlaylistAttributes
-import cz.muni.pv239.spotifymer.util.SpotifyWebApi
+import cz.muni.pv239.spotifymer.model.Search
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
+import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
 
 class RecommendMenuFragment : Fragment() {
-
-    private lateinit var api: SpotifyAppApi
 
     private var _binding: FragmentRecommendMenuBinding? = null
     private val binding get() = _binding!!
 
     private var playlistViewModel: PlaylistViewModel? = null
     private var trackViewModel: TrackViewModel? = null
+    private var searchViewModel: SearchViewModel? = null
 
-    private val model: PlaylistAttributes by activityViewModels()
+    lateinit var adapter: SelectedSearchAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        api = SpotifyWebApi.getInstance()
-
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
+        searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
-        this.intiRecyclerView(view.context)
         this.intiEnergySeekBar()
+
+        renderRecyclerView(listOf())
+        searchViewModel
+            ?.getSearches()
+            ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
 
         binding.addSearchButton.setOnClickListener {
             parentFragmentManager
@@ -58,10 +57,17 @@ class RecommendMenuFragment : Fragment() {
                 ?.observe(
                     viewLifecycleOwner,
                     Observer { id ->
-                        this.trackViewModel?.bindTracksToPlaylist(id, model)
-                        activity?.finish()
-                    })
+                        searchViewModel?.getRecommendations()?.observe(
+                            viewLifecycleOwner,
+                            Observer { tracks ->
+                                this.trackViewModel?.bindTracksToPlaylist(
+                                    id,
+                                    tracks
+                                )
+                            })
 
+                    })
+            activity?.finish()
         }
     }
 
@@ -78,12 +84,6 @@ class RecommendMenuFragment : Fragment() {
         _binding = null
     }
 
-    private fun intiRecyclerView(context: Context) {
-        binding.searchAttributesRecyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = SearchAttributesListAdapter(model)
-        binding.searchAttributesRecyclerView.adapter = adapter
-    }
-
     private fun intiEnergySeekBar() {
         binding.energySeekbar.progress = 50
         binding.energySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -98,8 +98,15 @@ class RecommendMenuFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 val energy = seekBar.progress / 100.0f
-                model.setEnergy(energy)
+                //TODO model.setEnergy(energy)
             }
         })
+    }
+
+    private fun renderRecyclerView(searchList: List<Search>?) {
+        adapter = SelectedSearchAdapter(searchList, searchViewModel)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.selectedSearchRecyclerView.layoutManager = layoutManager
+        binding.selectedSearchRecyclerView.adapter = adapter
     }
 }

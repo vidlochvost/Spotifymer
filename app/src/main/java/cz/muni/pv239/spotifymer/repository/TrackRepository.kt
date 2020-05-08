@@ -8,7 +8,7 @@ import cz.muni.pv239.spotifymer.model.Song
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
-class TrackRepository(application: Application) : AndroidViewModel(application) {
+class TrackRepository(application: Application) {
 
     private var trackDao: TrackDao?
 

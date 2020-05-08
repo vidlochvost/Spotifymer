@@ -17,7 +17,6 @@ import cz.muni.pv239.spotifymer.view_model.TrackViewModel
 
 class PlaylistListAdapter(
     private val playlists: List<Playlist>?,
-    private val trackViewModel: TrackViewModel?,
     private val playlistViewModel: PlaylistViewModel?
 ) :
     RecyclerView.Adapter<PlaylistCardHolder>() {
@@ -27,6 +26,10 @@ class PlaylistListAdapter(
         return PlaylistCardHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.playlist_card, parent, false)
         )
+    }
+
+    override fun getItemCount(): Int {
+        return playlists?.size!!
     }
 
     override fun onBindViewHolder(holder: PlaylistCardHolder, position: Int) {
@@ -49,10 +52,6 @@ class PlaylistListAdapter(
                 view.context.startActivity(intent)
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return playlists?.size!!
     }
 }
 

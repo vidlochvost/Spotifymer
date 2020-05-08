@@ -48,7 +48,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_medium"
-            app:srcCompat="@drawable/round_add_black_18dp"
+            android:drawableTop="@drawable/baseline_delete_white_18dp"
             app:cornerRadius="15dp"/>
 
     </LinearLayout>
