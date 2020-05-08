@@ -19,4 +19,6 @@
     <string name="speechiness">Speechiness</string>
     <string name="tempo">Tempo</string>
     <string name="valence">Valence</string>
+    <string name="album_icon">Album icon</string>
+    <string name="new_playlist">New Playlist</string>
 </resources>

@@ -1,4 +1,4 @@
-package cz.muni.pv239.spotifymer.activity.SearchMenu
+package cz.muni.pv239.spotifymer.view.search_menu
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +19,7 @@ import cz.muni.pv239.spotifymer.credentials.CLIENT_SECRET
 import cz.muni.pv239.spotifymer.databinding.FragmentSearchBinding
 import cz.muni.pv239.spotifymer.model.PlaylistAttributes
 import cz.muni.pv239.spotifymer.model.Search
+import cz.muni.pv239.spotifymer.util.SpotifyWebApi
 
 class SearchMenuFragment : Fragment() {
 
@@ -35,11 +35,7 @@ class SearchMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        api = spotifyAppApi(
-            CLIENT_ID,
-            CLIENT_SECRET
-        ).build()
-
+        api = SpotifyWebApi.getInstance()
 
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(view.context)
         val adapter = SearchAdapter(ArrayList(), model)

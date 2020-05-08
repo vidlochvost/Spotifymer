@@ -10,7 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.SearchMenu.RecommendMenuFragment">
+        tools:context=".view.search_menu.RecommendMenuFragment">
+
+        <LinearLayout
+            android:id="@+id/outlinedTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:padding="@dimen/padding_small"
+                android:layout_height="match_parent"
+                android:background="@color/colorSecondary"
+                android:src="@drawable/baseline_album_black_18dp"
+                android:contentDescription="@string/album_icon" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/album_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorSecondary"
+                android:text="@string/new_playlist"/>
+
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -22,10 +50,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_attributes_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:layout_marginVertical="10dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/add_search_button"

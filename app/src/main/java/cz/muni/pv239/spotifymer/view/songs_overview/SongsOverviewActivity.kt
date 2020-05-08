@@ -1,16 +1,16 @@
-package cz.muni.pv239.spotifymer.activity.SearchMenu
+package cz.muni.pv239.spotifymer.view.songs_overview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import cz.muni.pv239.spotifymer.R
-import cz.muni.pv239.spotifymer.model.PlaylistAttributes
 
-class NewPlaylistActivity : AppCompatActivity() {
+class SongsOverviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.activity_songs_overview)
+
+        val playlistId = intent.getLongExtra("PLAYLIST_ID", 0)
 
         if (savedInstanceState != null) {
             return;
@@ -18,9 +18,7 @@ class NewPlaylistActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.content_layout, RecommendMenuFragment())
+            .add(R.id.songs_content, SongsManagementFragment(playlistId))
             .commit()
     }
-
-
 }

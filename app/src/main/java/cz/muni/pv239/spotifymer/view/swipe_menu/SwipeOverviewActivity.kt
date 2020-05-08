@@ -1,4 +1,4 @@
-package cz.muni.pv239.spotifymer.activity.SwipeMenu
+package cz.muni.pv239.spotifymer.view.swipe_menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

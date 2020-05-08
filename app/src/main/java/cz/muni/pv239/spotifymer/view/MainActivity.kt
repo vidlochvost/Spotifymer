@@ -1,10 +1,10 @@
-package cz.muni.pv239.spotifymer.activity
+package cz.muni.pv239.spotifymer.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import cz.muni.pv239.spotifymer.R
-import cz.muni.pv239.spotifymer.activity.SwipeMenu.SwipeOverviewActivity
+import cz.muni.pv239.spotifymer.view.swipe_menu.SwipeOverviewActivity
 
 class MainActivity : AppCompatActivity() {
 

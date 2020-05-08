@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.SwipeMenu.TopArtistsFragment">
+    tools:context=".view.swipe_menu.TopArtistsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

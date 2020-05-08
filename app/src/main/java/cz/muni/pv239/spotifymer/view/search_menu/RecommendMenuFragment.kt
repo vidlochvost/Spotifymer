@@ -1,4 +1,4 @@
-package cz.muni.pv239.spotifymer.activity.SearchMenu
+package cz.muni.pv239.spotifymer.view.search_menu
 
 import android.content.Context
 import android.os.Bundle
@@ -7,22 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.adamratzman.spotify.SpotifyAppApi
-import com.adamratzman.spotify.endpoints.public.TrackAttribute
-import com.adamratzman.spotify.spotifyAppApi
-import com.adamratzman.spotify.utils.Market
 
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.adapter.SearchAttributesListAdapter
-import cz.muni.pv239.spotifymer.credentials.CLIENT_ID
-import cz.muni.pv239.spotifymer.credentials.CLIENT_SECRET
 import cz.muni.pv239.spotifymer.databinding.FragmentRecommendMenuBinding
 import cz.muni.pv239.spotifymer.model.PlaylistAttributes
+import cz.muni.pv239.spotifymer.util.SpotifyWebApi
+import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
+import cz.muni.pv239.spotifymer.view_model.TrackViewModel
 
 class RecommendMenuFragment : Fragment() {
 
@@ -31,15 +28,18 @@ class RecommendMenuFragment : Fragment() {
     private var _binding: FragmentRecommendMenuBinding? = null
     private val binding get() = _binding!!
 
+    private var playlistViewModel: PlaylistViewModel? = null
+    private var trackViewModel: TrackViewModel? = null
+
     private val model: PlaylistAttributes by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        api = spotifyAppApi(
-            CLIENT_ID,
-            CLIENT_SECRET
-        ).build()
+        api = SpotifyWebApi.getInstance()
+
+        playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
+        trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
 
         this.intiRecyclerView(view.context)
         this.intiEnergySeekBar()
@@ -53,13 +53,15 @@ class RecommendMenuFragment : Fragment() {
         }
 
         binding.searchRecommendationsButton.setOnClickListener {
-            val artists = model.getSearches().filter { it.type == "Artist" }.map { it.id }
-            val tracks = model.getSearches().filter { it.type == "Track" }.map { it.id }
-            val genres = model.getSearches().filter { it.type == "Genre" }.map { it.id }
-            val attributes = ArrayList<TrackAttribute<*>>()
-            attributes.add(TrackAttribute(model.getEnergy().getType(), model.getEnergy().value))
-            val results = api.browse.getTrackRecommendations(artists, tracks, genres, 10, Market.SK).complete()
-            results.tracks.map { println(it.name) }
+            this.playlistViewModel
+                ?.newPlaylist(binding.albumNameInput.text.toString())
+                ?.observe(
+                    viewLifecycleOwner,
+                    Observer { id ->
+                        this.trackViewModel?.bindTracksToPlaylist(id, model)
+                        activity?.finish()
+                    })
+
         }
     }
 
