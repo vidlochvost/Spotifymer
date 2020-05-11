@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adamratzman.spotify.models.Track
 import cz.muni.pv239.spotifymer.model.Search
+import cz.muni.pv239.spotifymer.model.TunableAttributes
 import cz.muni.pv239.spotifymer.repository.SearchRepository
 import cz.muni.pv239.spotifymer.util.SearchType
 import kotlinx.coroutines.launch
@@ -16,8 +17,14 @@ class SearchViewModel : ViewModel() {
 
     private var searchList = ArrayList<Search>()
 
+    private val attributes = TunableAttributes()
+
     fun getSearches(): LiveData<List<Search>> {
         return MutableLiveData(searchList)
+    }
+
+    fun getAttributes() : TunableAttributes {
+        return attributes
     }
 
     fun addSearch(search: Search) {

@@ -67,157 +67,203 @@
                 android:text="@string/search"
                 app:cornerRadius="20dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="@string/tempo"
-                android:textColor="@color/colorOnPrimary" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <CheckBox
+                <com.google.android.material.chip.ChipGroup
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
+                    android:layout_height="wrap_content">
 
-                <SeekBar
-                    android:id="@+id/tempo_seekbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="7" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/tempo_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tempo" />
 
-                <TextView
-                    android:id="@+id/tempo_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/defaultTempo"
-                    android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/valence_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/valence" />
 
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/danceability_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/danceability" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/energy_chip"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/energy" />
+
+                </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="@string/valance"
-                android:textColor="@color/colorOnPrimary" />
-
             <LinearLayout
+                android:id="@+id/tempo_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
-
-                <SeekBar
-                    android:id="@+id/valance_seekbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="7" />
+                android:layout_height="0dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/valance_text"
-                    android:text="@string/defaultValance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp" />
+                    android:text="@string/tempo"
+                    android:textColor="@color/colorOnPrimary" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <SeekBar
+                        android:id="@+id/tempo_seekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="7" />
+
+                    <TextView
+                        android:id="@+id/tempo_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/defaultTempo"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textSize="25sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="@string/danceability"
-                android:textColor="@color/colorOnPrimary" />
-
             <LinearLayout
+                android:id="@+id/valence_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
-
-                <SeekBar
-                    android:id="@+id/danceability_seekbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="7" />
+                android:layout_height="0dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/danceability_text"
-                    android:text="@string/defaultDanceability"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp" />
+                    android:text="@string/valence"
+                    android:textColor="@color/colorOnPrimary" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <SeekBar
+                        android:id="@+id/valence_seekbar"
+                        android:max="250"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"/>
+
+                    <TextView
+                        android:id="@+id/valence_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/defaultValence"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textSize="25sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="@string/energy"
-                android:textColor="@color/colorOnPrimary" />
-
             <LinearLayout
+                android:id="@+id/danceability_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
-
-                <SeekBar
-                    android:id="@+id/energy_seekbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="7" />
+                android:layout_height="0dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/energy_text"
-                    android:text="@string/defaultEnergy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:gravity="center"
-                    android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp" />
+                    android:text="@string/danceability"
+                    android:textColor="@color/colorOnPrimary" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <SeekBar
+                        android:id="@+id/danceability_seekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="7" />
+
+                    <TextView
+                        android:id="@+id/danceability_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/defaultDanceability"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/energy_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="@string/energy"
+                    android:textColor="@color/colorOnPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <SeekBar
+                        android:id="@+id/energy_seekbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="7" />
+
+                    <TextView
+                        android:id="@+id/energy_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/defaultEnergy"
+                        android:textColor="@color/colorOnPrimary"
+                        android:textSize="25sp" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

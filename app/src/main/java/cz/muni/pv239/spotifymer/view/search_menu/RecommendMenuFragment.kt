@@ -37,7 +37,10 @@ class RecommendMenuFragment : Fragment() {
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
         searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
-        this.intiEnergySeekBar()
+        initEnergySeekBar()
+        initDanceabilitySeekBar()
+        initTempoSeekBar()
+        initValenceSeekBar()
 
         renderRecyclerView(listOf())
         searchViewModel
@@ -112,7 +115,7 @@ class RecommendMenuFragment : Fragment() {
         binding.selectedSearchRecyclerView.adapter = adapter
     }
 
-    private fun intiEnergySeekBar() {
+    private fun initEnergySeekBar() {
         binding.energySeekbar.progress = 50
         binding.energySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
@@ -126,8 +129,96 @@ class RecommendMenuFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 val energy = seekBar.progress / 100.0f
-                //TODO model.setEnergy(energy)
+                searchViewModel?.getAttributes()?.energy?.value = energy
             }
         })
+        binding.energyChip.setOnClickListener {
+            if (binding.energyChip.isChecked) {
+                binding.energyLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
+                binding.energyLayout.layoutParams.height = 0
+            }
+            binding.energyLayout.requestLayout();
+        }
+    }
+
+    private fun initTempoSeekBar() {
+        binding.tempoSeekbar.progress = 125
+        binding.tempoSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                binding.tempoText.text = i.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                val tempo = seekBar.progress.toFloat()
+                searchViewModel?.getAttributes()?.tempo?.value = tempo
+            }
+        })
+        binding.tempoChip.setOnClickListener {
+            if (binding.tempoChip.isChecked) {
+                binding.tempoLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
+                binding.tempoLayout.layoutParams.height = 0
+            }
+            binding.tempoLayout.requestLayout();
+        }
+    }
+
+    private fun initDanceabilitySeekBar() {
+        binding.danceabilitySeekbar.progress = 50
+        binding.danceabilitySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                val danceability = i / 100.0f
+                binding.danceabilityText.text = danceability.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                val danceability = seekBar.progress / 100.0f
+                searchViewModel?.getAttributes()?.danceability?.value = danceability
+            }
+        })
+        binding.danceabilityChip.setOnClickListener {
+            if (binding.danceabilityChip.isChecked) {
+                binding.danceabilityLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
+                binding.danceabilityLayout.layoutParams.height = 0
+            }
+            binding.danceabilityLayout.requestLayout();
+        }
+    }
+
+    private fun initValenceSeekBar() {
+        binding.valenceSeekbar.progress = 50
+        binding.valenceSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+
+            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
+                val valence = i / 100.0f
+                binding.valenceText.text = valence.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                val valence = seekBar.progress / 100.0f
+                searchViewModel?.getAttributes()?.valence?.value = valence
+            }
+        })
+        binding.valenceChip.setOnClickListener {
+            if (binding.valenceChip.isChecked) {
+                binding.valenceLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
+                binding.valenceLayout.layoutParams.height = 0
+            }
+            binding.valenceLayout.requestLayout();
+        }
     }
 }

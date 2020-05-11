@@ -1,23 +1,17 @@
 package cz.muni.pv239.spotifymer.view.search_menu
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adamratzman.spotify.SpotifyAppApi
-import cz.muni.pv239.spotifymer.R
 
 import cz.muni.pv239.spotifymer.adapter.SearchAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentSearchBinding
@@ -26,7 +20,7 @@ import cz.muni.pv239.spotifymer.util.SearchType
 import cz.muni.pv239.spotifymer.util.SpotifyWebApi
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 
-class SearchMenuFragment() : Fragment(), Parcelable {
+class SearchMenuFragment() : Fragment() {
 
     lateinit var api: SpotifyAppApi
 
@@ -38,10 +32,6 @@ class SearchMenuFragment() : Fragment(), Parcelable {
     lateinit var adapter: SearchAdapter
 
     private var activeSearchType = SearchType.ARTIST
-
-    constructor(parcel: Parcel) : this() {
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,7 +79,6 @@ class SearchMenuFragment() : Fragment(), Parcelable {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 
     private fun renderRecyclerView(searchList: List<Search>?) {
@@ -114,23 +103,5 @@ class SearchMenuFragment() : Fragment(), Parcelable {
         renderRecyclerView(listOf())
         binding.searchBar.requestFocus()
         showKeyboard()
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<SearchMenuFragment> {
-        override fun createFromParcel(parcel: Parcel): SearchMenuFragment {
-            return SearchMenuFragment(parcel)
-        }
-
-        override fun newArray(size: Int): Array<SearchMenuFragment?> {
-            return arrayOfNulls(size)
-        }
     }
 }

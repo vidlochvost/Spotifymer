@@ -23,8 +23,7 @@
     <string name="new_playlist">New Playlist</string>
     <string name="defaultEnergy">0.5</string>
     <string name="defaultTempo">125</string>
-    <string name="valance">Valance</string>
-    <string name="defaultValance">0.5</string>
+    <string name="defaultValence">0.5</string>
     <string name="defaultDanceability">0.5</string>
     <string name="searches">Searches</string>
 </resources>
