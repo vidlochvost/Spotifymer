@@ -89,6 +89,7 @@ class SearchMenuFragment() : Fragment(), Parcelable {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
     private fun renderRecyclerView(searchList: List<Search>?) {
