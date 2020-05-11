@@ -5,106 +5,232 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/search_attributes_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".view.search_menu.RecommendMenuFragment">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/outlinedTextField"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:id="@+id/search_attributes_layout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".view.search_menu.RecommendMenuFragment">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:padding="@dimen/padding_small"
-                android:layout_height="match_parent"
-                android:background="@color/colorSecondary"
-                android:src="@drawable/baseline_album_black_18dp"
-                android:contentDescription="@string/album_icon" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/album_name_input"
+            <LinearLayout
+                android:id="@+id/outlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorSecondary"
-                android:text="@string/new_playlist"/>
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorSecondary"
+                    android:contentDescription="@string/album_icon"
+                    android:padding="@dimen/padding_small"
+                    android:src="@drawable/baseline_album_black_18dp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/album_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorSecondary"
+                    android:text="@string/new_playlist" />
 
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/artist"
-            android:textColor="@color/colorOnPrimary" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/selected_search_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginVertical="10dp"
-            android:scrollbars="vertical"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/margin_medium"
-            android:text="@string/search"
-            app:cornerRadius="20dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/energy"
-            android:textColor="@color/colorOnPrimary" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <SeekBar
-                android:id="@+id/energy_seekbar"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/energy_text"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/artist"
+                android:textColor="@color/colorOnPrimary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selected_search_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginVertical="10dp"
+                android:scrollbars="vertical" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/defaultEnergy"
-                android:textColor="@color/colorOnPrimary"
-                android:textSize="25sp" />
+                android:padding="@dimen/margin_medium"
+                android:text="@string/search"
+                app:cornerRadius="20dp" />
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/tempo"
+            android:textColor="@color/colorOnPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <SeekBar
+                    android:id="@+id/tempo_seekbar"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="4"/>
+
+                <TextView
+                    android:id="@+id/tempo_text"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="@string/defaultTempo"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="25sp"
+                    android:layout_weight="3"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/valance"
+                android:textColor="@color/colorOnPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <SeekBar
+                    android:id="@+id/valance_seekbar"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="4"/>
+
+                <TextView
+                    android:id="@+id/valance_text"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="@string/defaultValance"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="25sp"
+                    android:layout_weight="3"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/danceability"
+                android:textColor="@color/colorOnPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <SeekBar
+                    android:id="@+id/danceability_seekbar"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="4"/>
+
+                <TextView
+                    android:id="@+id/danceability_text"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="@string/defaultDanceability"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="25sp"
+                    android:layout_weight="3"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/energy"
+                android:textColor="@color/colorOnPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:layout_marginBottom="100dp">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <SeekBar
+                    android:id="@+id/energy_seekbar"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="4"/>
+
+                <TextView
+                    android:id="@+id/energy_text"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="@string/defaultEnergy"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="25sp"
+                    android:layout_weight="3"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_recommendations_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:backgroundTint="@color/colorPrimaryVariant"
         android:layout_marginVertical="15dp"
+        android:backgroundTint="@color/colorPrimaryVariant"
         app:srcCompat="@drawable/baseline_add_white_18dp"
-        app:tint="@color/colorOnPrimary"/>
+        app:tint="@color/colorOnPrimary" />
 
 </FrameLayout>

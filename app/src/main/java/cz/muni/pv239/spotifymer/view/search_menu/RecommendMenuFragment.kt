@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,22 +53,31 @@ class RecommendMenuFragment : Fragment() {
         }
 
         binding.searchRecommendationsButton.setOnClickListener {
-            this.playlistViewModel
-                ?.newPlaylist(binding.albumNameInput.text.toString())
-                ?.observe(
-                    viewLifecycleOwner,
-                    Observer { id ->
-                        searchViewModel?.getRecommendations()?.observe(
-                            viewLifecycleOwner,
-                            Observer { tracks ->
-                                this.trackViewModel?.bindTracksToPlaylist(
-                                    id,
-                                    tracks
-                                )
-                            })
+            searchViewModel?.getSearches()?.observe(
+                viewLifecycleOwner,
+                Observer { searches ->
+                    if (searches.isEmpty()) {
+                        Toast.makeText(context, "Search for artists, tracks or genres!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        playlistViewModel
+                            ?.newPlaylist(binding.albumNameInput.text.toString())
+                            ?.observe(
+                                viewLifecycleOwner,
+                                Observer { id ->
+                                    searchViewModel?.getRecommendations()?.observe(
+                                        viewLifecycleOwner,
+                                        Observer { tracks ->
+                                            trackViewModel?.bindTracksToPlaylist(
+                                                id,
+                                                tracks
+                                            )
+                                        })
 
-                    })
-            activity?.finish()
+                                })
+                        activity?.finish()
+                    }
+                }
+            )
         }
     }
 

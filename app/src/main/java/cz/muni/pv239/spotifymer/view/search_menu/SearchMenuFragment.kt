@@ -1,12 +1,16 @@
 package cz.muni.pv239.spotifymer.view.search_menu
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,19 +47,26 @@ class SearchMenuFragment : Fragment() {
 
         binding.searchButton.setOnClickListener {
             val search = binding.searchBar.text.toString()
-            searchViewModel?.search(search, activeSearchType)
-                ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
+            if (search.isBlank()) {
+                Toast.makeText(context, "Search field is blank!", Toast.LENGTH_SHORT).show()
+            } else {
+                searchViewModel?.search(search, activeSearchType)
+                    ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
+                hideKeyboard()
+            }
         }
-        prepareButton(view.context, SearchType.ARTIST)
 
-        binding.searchArtistsButton.setOnClickListener {
-            prepareButton(view.context, SearchType.ARTIST)
+        binding.searchArtistsChip.setOnClickListener {
+            binding.searchBar.text?.clear()
+            activeSearchType = SearchType.ARTIST
         }
-        binding.searchTracksButton.setOnClickListener {
-            prepareButton(view.context, SearchType.TRACK)
+        binding.searchTracksChip.setOnClickListener {
+            binding.searchBar.text?.clear()
+            activeSearchType = SearchType.TRACK
         }
-        binding.searchGenresButton.setOnClickListener {
-            prepareButton(view.context, SearchType.GENRE)
+        binding.searchGenresChip.setOnClickListener {
+            binding.searchBar.text?.clear()
+            activeSearchType = SearchType.GENRE
         }
     }
 
@@ -72,28 +83,15 @@ class SearchMenuFragment : Fragment() {
         _binding = null
     }
 
-    private fun prepareButton(context: Context, type: SearchType) {
-        resetButtonsColor(context)
-        val color = ContextCompat.getColor(context, R.color.colorPrimaryVariant)
-        when (activeSearchType) {
-            SearchType.ARTIST -> binding.searchArtistsButton.setBackgroundColor(color)
-            SearchType.TRACK -> binding.searchTracksButton.setBackgroundColor(color)
-            SearchType.GENRE -> binding.searchGenresButton.setBackgroundColor(color)
-        }
-        activeSearchType = type
-    }
-
-    private fun resetButtonsColor(context: Context) {
-        val color = ContextCompat.getColor(context, R.color.colorPrimary)
-        binding.searchArtistsButton.setBackgroundColor(color)
-        binding.searchTracksButton.setBackgroundColor(color)
-        binding.searchGenresButton.setBackgroundColor(color)
-    }
-
     private fun renderRecyclerView(searchList: List<Search>?) {
         adapter = SearchAdapter(searchList, searchViewModel)
         val layoutManager = LinearLayoutManager(this.context)
         binding.searchRecyclerView.layoutManager = layoutManager
         binding.searchRecyclerView.adapter = adapter
+    }
+
+    private fun hideKeyboard() {
+        val im = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        im.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
