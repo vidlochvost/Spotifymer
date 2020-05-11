@@ -4,36 +4,44 @@
     android:id="@+id/search_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small">
+    android:layout_marginHorizontal="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_medium">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal" >
+        android:layout_height="80dp">
 
         <ImageView
             android:id="@+id/result_image"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="match_parent"
             android:contentDescription="@string/image"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title_text"
-            android:layout_width="230dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="@dimen/padding_medium"
-            android:textColor="@color/colorOnPrimary"/>
+            android:padding="@dimen/padding_small"
+            android:textColor="@color/colorOnPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/add_button"
+            app:layout_constraintStart_toEndOf="@+id/result_image" />
 
         <Button
             android:id="@+id/add_button"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_large"
             android:drawableTop="@drawable/baseline_add_white_18dp"
-            app:cornerRadius="15dp"/>
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

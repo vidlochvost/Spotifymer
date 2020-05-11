@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorSecondary"
-                    android:text="@string/new_playlist" />
+                    android:hint="@string/new_playlist" />
 
 
             </LinearLayout>
@@ -48,6 +48,7 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:text="@string/searches"
+                android:textSize="@dimen/text_large"
                 android:textColor="@color/colorOnPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView

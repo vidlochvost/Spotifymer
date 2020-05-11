@@ -4,7 +4,8 @@
     android:id="@+id/playlist_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small"
+    android:layout_marginHorizontal="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_medium"
     android:clickable="true"
     android:focusable="true">
 
@@ -47,7 +48,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_medium"
             android:drawableTop="@drawable/baseline_delete_white_18dp"
             app:cornerRadius="15dp"/>
 

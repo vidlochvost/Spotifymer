@@ -26,4 +26,6 @@
     <string name="defaultValence">0.5</string>
     <string name="defaultDanceability">0.5</string>
     <string name="searches">Searches</string>
+    <string name="yourPlaylists">Your Playlists</string>
+    <string name="songs">Songs</string>
 </resources>

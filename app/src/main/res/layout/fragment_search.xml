@@ -7,46 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".view.search_menu.SearchMenuFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            app:checkedChip="@id/search_artists_chip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true">
 
-            <com.google.android.material.chip.ChipGroup
+            <com.google.android.material.chip.Chip
+                android:id="@+id/search_artists_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:checkedChip="@id/search_artists_chip"
-                app:singleSelection="true">
+                android:text="@string/artist" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/search_artists_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/artist" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/search_tracks_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/track" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/search_tracks_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/track" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/search_genres_chip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genre" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/search_genres_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/genre" />
+        </com.google.android.material.chip.ChipGroup>
 
-            </com.google.android.material.chip.ChipGroup>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/outlinedTextField"
@@ -54,14 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            tools:layout_editor_absoluteX="8dp">
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="40dp"
+                android:contentDescription="@string/image"
                 android:layout_height="match_parent"
                 android:background="@color/colorSecondary"
-                android:padding="@dimen/padding_small"
+                android:padding="@dimen/padding_medium"
                 android:src="@drawable/baseline_search_black_18dp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,28 +69,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorSecondary" />
-
-
         </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:clipToPadding="false"
-            android:paddingBottom="70dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/search_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/outlinedTextField" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginVertical="@dimen/margin_medium"
+            android:layout_marginBottom="32dp"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/search"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginVertical="@dimen/margin_medium"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/search"
-        app:cornerRadius="20dp" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
