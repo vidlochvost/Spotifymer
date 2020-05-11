@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="@string/artist"
+                android:text="@string/searches"
                 android:textColor="@color/colorOnPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -68,11 +68,11 @@
                 app:cornerRadius="20dp" />
 
             <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/tempo"
-            android:textColor="@color/colorOnPrimary" />
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/tempo"
+                android:textColor="@color/colorOnPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,26 +82,26 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
 
                 <SeekBar
                     android:id="@+id/tempo_seekbar"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="7" />
 
                 <TextView
                     android:id="@+id/tempo_text"
-                    android:layout_width="60dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="@string/defaultTempo"
                     android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp"
-                    android:layout_weight="3"/>
+                    android:textSize="25sp" />
 
             </LinearLayout>
 
@@ -120,26 +120,26 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
 
                 <SeekBar
                     android:id="@+id/valance_seekbar"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="7" />
 
                 <TextView
                     android:id="@+id/valance_text"
-                    android:layout_width="60dp"
+                    android:text="@string/defaultValance"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="@string/defaultValance"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp"
-                    android:layout_weight="3"/>
+                    android:textSize="25sp" />
 
             </LinearLayout>
 
@@ -158,26 +158,26 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
 
                 <SeekBar
                     android:id="@+id/danceability_seekbar"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="7" />
 
                 <TextView
                     android:id="@+id/danceability_text"
-                    android:layout_width="60dp"
+                    android:text="@string/defaultDanceability"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="@string/defaultDanceability"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp"
-                    android:layout_weight="3"/>
+                    android:textSize="25sp" />
 
             </LinearLayout>
 
@@ -191,32 +191,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:layout_marginBottom="100dp">
+                android:paddingHorizontal="10dp">
 
                 <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" />
 
                 <SeekBar
                     android:id="@+id/energy_seekbar"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="7" />
 
                 <TextView
                     android:id="@+id/energy_text"
-                    android:layout_width="60dp"
+                    android:text="@string/defaultEnergy"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="@string/defaultEnergy"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textColor="@color/colorOnPrimary"
-                    android:textSize="25sp"
-                    android:layout_weight="3"/>
+                    android:textSize="25sp" />
 
             </LinearLayout>
 

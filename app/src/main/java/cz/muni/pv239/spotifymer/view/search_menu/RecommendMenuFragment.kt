@@ -57,24 +57,35 @@ class RecommendMenuFragment : Fragment() {
                 viewLifecycleOwner,
                 Observer { searches ->
                     if (searches.isEmpty()) {
-                        Toast.makeText(context, "Search for artists, tracks or genres!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Search for artists, tracks or genres!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        playlistViewModel
-                            ?.newPlaylist(binding.albumNameInput.text.toString())
-                            ?.observe(
-                                viewLifecycleOwner,
-                                Observer { id ->
-                                    searchViewModel?.getRecommendations()?.observe(
-                                        viewLifecycleOwner,
-                                        Observer { tracks ->
-                                            trackViewModel?.bindTracksToPlaylist(
-                                                id,
-                                                tracks
-                                            )
-                                        })
+                        searchViewModel?.getRecommendations()?.observe(
+                            viewLifecycleOwner,
+                            Observer { tracks ->
+                                if (tracks.isEmpty()) {
+                                    Toast.makeText(
+                                        context,
+                                        "Sorry, not enough parameters provided :(",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    playlistViewModel?.newPlaylist(binding.albumNameInput.text.toString())
+                                        ?.observe(
+                                            viewLifecycleOwner,
+                                            Observer { id ->
+                                                trackViewModel?.bindTracksToPlaylist(
+                                                    id,
+                                                    tracks
+                                                )
+                                            })
+                                    activity?.finish()
+                                }
 
-                                })
-                        activity?.finish()
+                            })
                     }
                 }
             )
@@ -94,6 +105,13 @@ class RecommendMenuFragment : Fragment() {
         _binding = null
     }
 
+    private fun renderRecyclerView(searchList: List<Search>?) {
+        adapter = SelectedSearchAdapter(searchList, searchViewModel)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.selectedSearchRecyclerView.layoutManager = layoutManager
+        binding.selectedSearchRecyclerView.adapter = adapter
+    }
+
     private fun intiEnergySeekBar() {
         binding.energySeekbar.progress = 50
         binding.energySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -111,12 +129,5 @@ class RecommendMenuFragment : Fragment() {
                 //TODO model.setEnergy(energy)
             }
         })
-    }
-
-    private fun renderRecyclerView(searchList: List<Search>?) {
-        adapter = SelectedSearchAdapter(searchList, searchViewModel)
-        val layoutManager = LinearLayoutManager(this.context)
-        binding.selectedSearchRecyclerView.layoutManager = layoutManager
-        binding.selectedSearchRecyclerView.adapter = adapter
     }
 }
