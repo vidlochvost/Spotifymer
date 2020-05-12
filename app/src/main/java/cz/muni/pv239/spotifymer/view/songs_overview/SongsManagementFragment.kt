@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import cz.muni.pv239.spotifymer.adapter.PlaylistListAdapter
 import cz.muni.pv239.spotifymer.adapter.SongListAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentSongsManagementBinding
 import cz.muni.pv239.spotifymer.model.Song
@@ -49,10 +48,12 @@ class SongsManagementFragment(private val playlistId: Long) : Fragment() {
         this.trackViewModel
             ?.getTracks(playlistId)
             ?.observe(viewLifecycleOwner, Observer { songs -> renderRecyclerView(songs) })
+
+
     }
 
     private fun renderRecyclerView(songs: List<Song>?) {
-        adapter = SongListAdapter(songs)
+        adapter = SongListAdapter(parentFragmentManager, songs)
         val layoutManager = LinearLayoutManager(this.context)
         binding.songsRecyclerView.layoutManager = layoutManager
         binding.songsRecyclerView.adapter = adapter

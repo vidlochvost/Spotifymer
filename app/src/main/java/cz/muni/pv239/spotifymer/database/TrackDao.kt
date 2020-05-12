@@ -9,6 +9,9 @@ import cz.muni.pv239.spotifymer.model.Song
 @Dao
 interface TrackDao {
 
+    @Query("SELECT * FROM tracks WHERE id = :id")
+    fun get(id: Long): LiveData<Song>
+
     @Query("SELECT * FROM tracks")
     fun getAll(): LiveData<List<Song>>
 

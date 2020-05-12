@@ -5,16 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.adapter.SelectedSearchAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentRecommendMenuBinding
+import cz.muni.pv239.spotifymer.model.Attribute
 import cz.muni.pv239.spotifymer.model.Search
+import cz.muni.pv239.spotifymer.util.AttributeType
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
@@ -37,12 +42,10 @@ class RecommendMenuFragment : Fragment() {
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
         searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
-        initEnergySeekBar()
-        initDanceabilitySeekBar()
-        initTempoSeekBar()
-        initValenceSeekBar()
-
+        initChips()
+        initSeekBars()
         renderRecyclerView(listOf())
+
         searchViewModel
             ?.getSearches()
             ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
@@ -103,6 +106,15 @@ class RecommendMenuFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.setLayout(binding.energyChip, binding.energyLayout)
+        this.setLayout(binding.tempoChip, binding.tempoLayout)
+        this.setLayout(binding.danceabilityChip, binding.danceabilityLayout)
+        this.setLayout(binding.valenceChip, binding.valenceLayout)
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -115,110 +127,90 @@ class RecommendMenuFragment : Fragment() {
         binding.selectedSearchRecyclerView.adapter = adapter
     }
 
-    private fun initEnergySeekBar() {
-        binding.energySeekbar.progress = 50
-        binding.energySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+    private fun initSeekBar(
+        seekBar: SeekBar,
+        initProgress: Int,
+        division: Float?,
+        textView: TextView,
+        attribute: Attribute?
+    ) {
+        seekBar.progress = initProgress
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val energy = i / 100.0f
-                binding.energyText.text = energy.toString()
+                textView.text = calculate(i).toString()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                val energy = seekBar.progress / 100.0f
-                searchViewModel?.getAttributes()?.energy?.value = energy
+                attribute?.value = calculate(seekBar.progress).toFloat()
+            }
+
+            private fun calculate(i: Int): Number {
+                val result: Number
+                if (division == null) {
+                    result = i
+                } else {
+                    result = (i / division)
+                }
+                return result
             }
         })
-        binding.energyChip.setOnClickListener {
-            if (binding.energyChip.isChecked) {
-                binding.energyLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                binding.energyLayout.layoutParams.height = 0
-            }
-            binding.energyLayout.requestLayout();
+    }
+
+    private fun initChip(chip: Chip, layout: LinearLayout, attribute: Attribute?) {
+        chip.setOnClickListener {
+            attribute?.isActive = chip.isChecked
+            setLayout(chip, layout)
         }
     }
 
-    private fun initTempoSeekBar() {
-        binding.tempoSeekbar.progress = 125
-        binding.tempoSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                binding.tempoText.text = i.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                val tempo = seekBar.progress.toFloat()
-                searchViewModel?.getAttributes()?.tempo?.value = tempo
-            }
-        })
-        binding.tempoChip.setOnClickListener {
-            if (binding.tempoChip.isChecked) {
-                binding.tempoLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                binding.tempoLayout.layoutParams.height = 0
-            }
-            binding.tempoLayout.requestLayout();
+    private fun setLayout(chip: Chip, layout: LinearLayout) {
+        if (chip.isChecked) {
+            layout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        } else {
+            layout.layoutParams.height = 0
         }
+        layout.requestLayout()
     }
 
-    private fun initDanceabilitySeekBar() {
-        binding.danceabilitySeekbar.progress = 50
-        binding.danceabilitySeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val danceability = i / 100.0f
-                binding.danceabilityText.text = danceability.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                val danceability = seekBar.progress / 100.0f
-                searchViewModel?.getAttributes()?.danceability?.value = danceability
-            }
-        })
-        binding.danceabilityChip.setOnClickListener {
-            if (binding.danceabilityChip.isChecked) {
-                binding.danceabilityLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                binding.danceabilityLayout.layoutParams.height = 0
-            }
-            binding.danceabilityLayout.requestLayout();
-        }
+    private fun initChips() {
+        initChip(
+            binding.energyChip, binding.energyLayout,
+            searchViewModel?.getAttributes()?.get(AttributeType.ENERGY)
+        )
+        initChip(
+            binding.tempoChip, binding.tempoLayout,
+            searchViewModel?.getAttributes()?.get(AttributeType.TEMPO)
+        )
+        initChip(
+            binding.danceabilityChip, binding.danceabilityLayout,
+            searchViewModel?.getAttributes()?.get(AttributeType.DANCEABILITY)
+        )
+        initChip(
+            binding.valenceChip, binding.valenceLayout,
+            searchViewModel?.getAttributes()?.get(AttributeType.VALENCE)
+        )
     }
 
-    private fun initValenceSeekBar() {
-        binding.valenceSeekbar.progress = 50
-        binding.valenceSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val valence = i / 100.0f
-                binding.valenceText.text = valence.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                val valence = seekBar.progress / 100.0f
-                searchViewModel?.getAttributes()?.valence?.value = valence
-            }
-        })
-        binding.valenceChip.setOnClickListener {
-            if (binding.valenceChip.isChecked) {
-                binding.valenceLayout.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                binding.valenceLayout.layoutParams.height = 0
-            }
-            binding.valenceLayout.requestLayout();
-        }
+    private fun initSeekBars() {
+        initSeekBar(
+            binding.energySeekbar, 50, 100f, binding.energyText,
+            searchViewModel?.getAttributes()?.get(AttributeType.ENERGY)
+        )
+        initSeekBar(
+            binding.tempoSeekbar, 125, null, binding.tempoText,
+            searchViewModel?.getAttributes()?.get(AttributeType.TEMPO)
+        )
+        initSeekBar(
+            binding.danceabilitySeekbar, 50, 100f, binding.danceabilityText,
+            searchViewModel?.getAttributes()?.get(AttributeType.DANCEABILITY)
+        )
+        initSeekBar(
+            binding.valenceSeekbar, 50, 100f, binding.valenceText,
+            searchViewModel?.getAttributes()?.get(AttributeType.VALENCE)
+        )
     }
 }

@@ -1,6 +1,7 @@
 package cz.muni.pv239.spotifymer.repository
 
 import com.adamratzman.spotify.endpoints.public.TrackAttribute
+import cz.muni.pv239.spotifymer.model.Attribute
 import cz.muni.pv239.spotifymer.model.Search
 import cz.muni.pv239.spotifymer.util.SearchType
 import cz.muni.pv239.spotifymer.util.SpotifyWebApi
@@ -42,12 +43,14 @@ class SearchRepository {
     }
 
     suspend fun getRecommendations(
-        searchList: ArrayList<Search>
+        searchList: List<Search>,
+        attributes: List<Attribute>
     ) = withContext(IO) {
         spotifyApi.browse.getTrackRecommendations(
             seedArtists = searchList.filter { it.type == SearchType.ARTIST }.map { it.id },
             seedTracks = searchList.filter { it.type == SearchType.TRACK }.map { it.id },
-            seedGenres = searchList.filter { it.type == SearchType.GENRE }.map { it.id }
+            seedGenres = searchList.filter { it.type == SearchType.GENRE }.map { it.id },
+            targetAttributes = attributes.map { TrackAttribute(it.getType(), it.value) }
         ).complete().tracks
     }
 }

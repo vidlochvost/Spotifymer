@@ -130,6 +130,7 @@
 
                     <SeekBar
                         android:id="@+id/tempo_seekbar"
+                        android:max="250"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -169,7 +170,6 @@
 
                     <SeekBar
                         android:id="@+id/valence_seekbar"
-                        android:max="250"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"

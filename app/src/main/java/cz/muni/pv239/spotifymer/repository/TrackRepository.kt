@@ -16,6 +16,7 @@ class TrackRepository(application: Application) {
         val db = AppDatabase.getInstance(application)
         trackDao = db.trackDao()
     }
+    fun getTrack(trackId: Long) = trackDao?.get(trackId)
 
     fun getTracks() = trackDao?.getAll()
 

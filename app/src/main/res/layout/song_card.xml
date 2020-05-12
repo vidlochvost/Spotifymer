@@ -24,13 +24,26 @@
         <TextView
             android:id="@+id/song_title_text"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:padding="@dimen/padding_small"
             android:textColor="@color/colorOnPrimary"
             app:layout_constraintEnd_toStartOf="@+id/song_button"
-            app:layout_constraintStart_toEndOf="@+id/song_image" />
+            app:layout_constraintStart_toEndOf="@+id/song_image"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/song_author_text"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:padding="@dimen/padding_small"
+            android:textColor="@color/colorOnPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/song_button"
+            app:layout_constraintStart_toEndOf="@+id/song_image"
+            app:layout_constraintTop_toBottomOf="@+id/song_title_text"/>
 
         <Button
             android:id="@+id/song_button"

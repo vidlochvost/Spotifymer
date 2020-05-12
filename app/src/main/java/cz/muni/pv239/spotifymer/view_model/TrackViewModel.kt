@@ -26,6 +26,8 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTracks(playlistId: Long) = repository.getTracks(playlistId)
 
+    fun getTrack(trackId: Long) = repository.getTrack(trackId)
+
     fun setTrack(song: Song) {
         viewModelScope.launch {
             repository.setTrack(song)
@@ -50,6 +52,7 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
                         playlistId,
                         track.album.images[0].url,
                         track.name,
+                        track.artists[0].name,
                         track.href
                     )
                 }

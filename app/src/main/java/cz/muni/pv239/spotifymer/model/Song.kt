@@ -16,6 +16,7 @@ data class Song (
     @ColumnInfo(name = "playlist_id") var playlistId: Long,
     @ColumnInfo(name = "image_url") var imageUrl: String?,
     @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "author") var author: String,
     @ColumnInfo(name = "spotify_url") var spotifyUrl: String
 ) {
     @PrimaryKey(autoGenerate = true)

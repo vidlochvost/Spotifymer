@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.model.Song
 
-@Database(entities = [Playlist::class, Song::class], version = 1, exportSchema = false)
+@Database(entities = [Playlist::class, Song::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
     abstract fun trackDao(): TrackDao
@@ -27,7 +29,13 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "AppDatabase"
-            ).build()
+            ).addMigrations(MIGRATION_1_2)
+                .build()
 
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE tracks ADD COLUMN author TEXT NOT NULL DEFAULT '<blank>'")
+            }
+        }
     }
 }
