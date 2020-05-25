@@ -23,15 +23,17 @@ class PlaylistRepository(application: Application) {
 
     fun getPlaylists() = playlistDao?.getAll()
 
+    fun getPlaylist(id: Long) = playlistDao?.get(id)
+
     suspend fun setPlaylist(playlist: Playlist) = withContext(IO) {
         playlistDao?.insert(playlist)
     }
 
-    suspend fun removePlaylist(id: Long) = withContext(IO) {
-        val playlist = playlistDao?.get(id)
-        if (playlist != null) {
-            playlistDao?.delete(playlist)
-        }
+    suspend fun removePlaylist(playlist: Playlist) = withContext(IO) {
+        playlistDao?.delete(playlist)
     }
 
+    suspend fun updatePlaylist(playlist: Playlist) = withContext(IO) {
+        playlistDao?.update(playlist)
+    }
 }

@@ -35,5 +35,14 @@ class SongOverviewFragment(private val song: Song) : Fragment() {
         binding.author.text = song.author
         binding.title.text = song.name
         Picasso.get().load(song.imageUrl).into(binding.image)
+        binding.playButton.setOnClickListener {
+            (activity as SongsOverviewActivity).spotifyRemote
+                .spotifyAppRemote?.let {
+                    if (it.isConnected) {
+                        println(song.spotifyUrl)
+                        it.playerApi?.play(song.spotifyUrl)
+                    }
+                }
+        }
     }
 }

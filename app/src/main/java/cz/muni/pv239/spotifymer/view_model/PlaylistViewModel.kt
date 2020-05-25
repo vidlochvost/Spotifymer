@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.repository.PlaylistRepository
+import cz.muni.pv239.spotifymer.util.RandomCover
 import kotlinx.coroutines.launch
 
 
@@ -13,6 +14,10 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
 
     fun getPlaylists(): LiveData<List<Playlist>>? {
         return repository.getPlaylists()
+    }
+
+    fun getPlaylist(id: Long): LiveData<Playlist>? {
+        return repository.getPlaylist(id)
     }
 
     fun setPlaylist(playlist: Playlist): LiveData<Long> {
@@ -27,12 +32,16 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
         return setPlaylist(
             Playlist(
                 playlistName,
-                "https://picsum.photos/id/${(0..1000).random()}/80/80"
+                RandomCover.generate()
             )
         )
     }
 
-    fun removePlaylist(id: Long) = viewModelScope.launch {
-        repository.removePlaylist(id)
+    fun removePlaylist(playlist: Playlist) = viewModelScope.launch {
+        repository.removePlaylist(playlist)
+    }
+
+    fun updatePlaylist(playlist: Playlist) = viewModelScope.launch {
+        repository.updatePlaylist(playlist)
     }
 }

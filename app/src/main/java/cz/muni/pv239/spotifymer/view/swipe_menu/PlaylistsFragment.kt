@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import cz.muni.pv239.spotifymer.view.search_menu.NewPlaylistActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.adapter.PlaylistListAdapter
 import cz.muni.pv239.spotifymer.databinding.PlaylistsLayoutBinding
 import cz.muni.pv239.spotifymer.model.Playlist
+import cz.muni.pv239.spotifymer.view.search_menu.NewPlaylistActivity
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
+
 
 class PlaylistsFragment : Fragment() {
 
@@ -43,6 +48,8 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initItemTouchHelper()
+
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
 
@@ -55,6 +62,24 @@ class PlaylistsFragment : Fragment() {
             startActivity(intent)
         }
 
+    }
+
+    private fun initItemTouchHelper() {
+        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                adapter.removePlaylist(viewHolder.adapterPosition)
+            }
+        }
+        ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(binding.playlistRecyclerView)
     }
 
     private fun renderRecyclerView(playlists: List<Playlist>?) {

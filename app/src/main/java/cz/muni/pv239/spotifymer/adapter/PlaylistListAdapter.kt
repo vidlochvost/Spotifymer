@@ -4,16 +4,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.view.songs_overview.SongsOverviewActivity
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
-import cz.muni.pv239.spotifymer.view_model.TrackViewModel
+
 
 class PlaylistListAdapter(
     private val playlists: List<Playlist>?,
@@ -33,19 +33,12 @@ class PlaylistListAdapter(
     }
 
     override fun onBindViewHolder(holder: PlaylistCardHolder, position: Int) {
+        val playlist = playlists?.get(position)
         //loading image from url using picasso
-        Picasso.get().load(playlists?.get(position)?.imageUrl).into(holder.coverImage)
-        holder.playlistName.text = playlists?.get(position)?.name
-        val id = playlists?.get(position)?.id
-
-        holder.button.setOnClickListener {
-            if (id != null) {
-                //val songs = trackViewModel?.getTracksByPlaylist(id)
-                //songs?.map { song -> println("Song: ${song.name}") }
-                playlistViewModel?.removePlaylist(id)
-            }
-        }
+        Picasso.get().load(playlist?.imageUrl).into(holder.coverImage)
+        holder.playlistName.text = playlist?.name
         holder.card.setOnClickListener { view ->
+            val id = playlist?.id
             if (id != null) {
                 val intent = Intent(view.context, SongsOverviewActivity::class.java)
                 intent.putExtra("PLAYLIST_ID", id)
@@ -53,13 +46,16 @@ class PlaylistListAdapter(
             }
         }
     }
+
+    fun removePlaylist(position: Int) {
+        playlists?.get(position)?.let { playlistViewModel?.removePlaylist(it) }
+    }
 }
 
 
 class PlaylistCardHolder(view: View) : RecyclerView.ViewHolder(view) {
     val coverImage = view.findViewById<ImageView>(R.id.playlist_cover_image)
     val playlistName = view.findViewById<TextView>(R.id.playlist_name)
-    val button = view.findViewById<Button>(R.id.temp_func_button)
     val card =
         view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.playlist_card_view)
 }

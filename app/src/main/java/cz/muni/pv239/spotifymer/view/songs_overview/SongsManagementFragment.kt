@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 
 import cz.muni.pv239.spotifymer.adapter.SongListAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentSongsManagementBinding
+import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.model.Song
+import cz.muni.pv239.spotifymer.util.RandomCover
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
 
@@ -47,9 +50,34 @@ class SongsManagementFragment(private val playlistId: Long) : Fragment() {
 
         this.trackViewModel
             ?.getTracks(playlistId)
-            ?.observe(viewLifecycleOwner, Observer { songs -> renderRecyclerView(songs) })
+            ?.observe(viewLifecycleOwner, Observer { songs ->
+                renderRecyclerView(songs)
+                binding.image.setOnClickListener {
+                    (activity as SongsOverviewActivity).spotifyRemote
+                        .spotifyAppRemote?.let {
+                            if (it.isConnected) {
+                                it.playerApi?.play(songs[0].spotifyUrl)
+                                for (i in 1 until songs.size) {
+                                    it.playerApi.queue(songs[i].spotifyUrl)
+                                }
+                            }
+                        }
+                }
+            })
 
-
+        playlistViewModel?.getPlaylist(playlistId)?.observe(
+            viewLifecycleOwner,
+            Observer { playlist ->
+                Picasso.get().load(playlist.imageUrl).into(binding.image)
+                binding.SongsTextView.text = playlist.name
+                binding.image.setOnLongClickListener {
+                    val image = RandomCover.generate()
+                    Picasso.get().load(image).into(binding.image)
+                    playlist.imageUrl = image
+                    playlistViewModel?.updatePlaylist(playlist)
+                    true
+                }
+            })
     }
 
     private fun renderRecyclerView(songs: List<Song>?) {

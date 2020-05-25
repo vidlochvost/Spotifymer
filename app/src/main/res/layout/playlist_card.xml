@@ -43,14 +43,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/temp_func_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:drawableTop="@drawable/baseline_delete_white_18dp"
-            app:cornerRadius="15dp"/>
-
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

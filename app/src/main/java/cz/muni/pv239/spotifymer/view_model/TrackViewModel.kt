@@ -53,7 +53,7 @@ class TrackViewModel(application: Application) : AndroidViewModel(application) {
                         track.album.images[0].url,
                         track.name,
                         track.artists[0].name,
-                        track.href
+                        track.uri.uri
                     )
                 }
                 repository.setTracks(trackList)

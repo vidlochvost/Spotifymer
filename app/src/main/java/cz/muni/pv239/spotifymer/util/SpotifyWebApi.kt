@@ -7,7 +7,7 @@ import cz.muni.pv239.spotifymer.credentials.CLIENT_SECRET
 
 object SpotifyWebApi {
 
-    private var INSTANCE: SpotifyAppApi = spotifyAppApi(
+    private val INSTANCE: SpotifyAppApi = spotifyAppApi(
         CLIENT_ID,
         CLIENT_SECRET
     ).build()
