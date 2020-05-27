@@ -39,7 +39,6 @@ class SongOverviewFragment(private val song: Song) : Fragment() {
             (activity as SongsOverviewActivity).spotifyRemote
                 .spotifyAppRemote?.let {
                     if (it.isConnected) {
-                        println(song.spotifyUrl)
                         it.playerApi?.play(song.spotifyUrl)
                     }
                 }

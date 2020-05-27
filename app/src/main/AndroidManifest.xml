@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.songs_overview.SongsOverviewActivity"></activity>
+        <activity android:name=".view.songs_overview.SongsOverviewActivity"/>
         <activity android:name=".view.search_menu.NewPlaylistActivity" />
         <activity android:name=".view.swipe_menu.SwipeOverviewActivity" />
         <activity android:name=".view.swipe_menu.TopArtistsFragment" />
@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
             android:name="preloaded_fonts"

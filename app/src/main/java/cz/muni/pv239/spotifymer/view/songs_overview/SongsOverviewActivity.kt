@@ -15,7 +15,7 @@ class SongsOverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_songs_overview)
 
-        spotifyRemote = SpotifyRemote
+        spotifyRemote = SpotifyRemote(this)
 
         val playlistId = intent.getLongExtra("PLAYLIST_ID", 0)
 
