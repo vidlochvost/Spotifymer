@@ -30,6 +30,8 @@ import cz.muni.pv239.spotifymer.credentials.REDIRECT_URI
 class SpotifyRemote(activity: AppCompatActivity) {
     val REQUEST_CODE = 1337
 
+    val SCOPES = arrayOf("streaming", "app-remote-control", "user-modify-playback-state")
+
     var spotifyAppRemote: SpotifyAppRemote? = null
 
     var connectionParams: ConnectionParams? = null
@@ -48,17 +50,13 @@ class SpotifyRemote(activity: AppCompatActivity) {
 
                 override fun onFailure(error: Throwable?) {
                     if (error is NotLoggedInException || error is UserNotAuthorizedException) {
+                        val builder = AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
 
-                        val builder = AuthenticationRequest.Builder(
-                            CLIENT_ID,
-                            AuthenticationResponse.Type.TOKEN,
-                            REDIRECT_URI
-                        )
-
-                        builder.setScopes(arrayOf("streaming"))
+                        builder.setScopes(SCOPES)
+                        builder.setShowDialog(true)
                         val request = builder.build()
 
-                        AuthenticationClient.openLoginActivity(activity, REQUEST_CODE, request)
+                        AuthenticationClient.openLoginInBrowser(activity, request)
                     } else if (error is CouldNotFindSpotifyApp) {
                         val dialog = SpotifyDownloadDialogFragment()
                         dialog.isCancelable = false
