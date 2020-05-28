@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import cz.muni.pv239.spotifymer.R
+import cz.muni.pv239.spotifymer.util.InternetConnection
 import cz.muni.pv239.spotifymer.util.SpotifyRemote
 
 
@@ -20,7 +21,7 @@ class SongsOverviewActivity : AppCompatActivity() {
         val playlistId = intent.getLongExtra("PLAYLIST_ID", 0)
 
         if (savedInstanceState != null) {
-            return;
+            return
         }
 
         supportFragmentManager
@@ -32,7 +33,11 @@ class SongsOverviewActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         SpotifyAppRemote.disconnect(spotifyRemote.spotifyAppRemote)
-        SpotifyAppRemote.connect(this, spotifyRemote.connectionParams, spotifyRemote.connectionListener)
+        SpotifyAppRemote.connect(
+            this,
+            spotifyRemote.connectionParams,
+            spotifyRemote.connectionListener
+        )
     }
 
     override fun onStop() {

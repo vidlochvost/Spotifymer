@@ -16,6 +16,7 @@ import com.adamratzman.spotify.SpotifyAppApi
 import cz.muni.pv239.spotifymer.adapter.SearchAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentSearchBinding
 import cz.muni.pv239.spotifymer.model.Search
+import cz.muni.pv239.spotifymer.util.InternetConnection
 import cz.muni.pv239.spotifymer.util.SearchType
 import cz.muni.pv239.spotifymer.util.SpotifyWebApi
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
@@ -45,6 +46,8 @@ class SearchMenuFragment() : Fragment() {
             val search = binding.searchBar.text.toString()
             if (search.isBlank()) {
                 Toast.makeText(context, "Search field is blank!", Toast.LENGTH_SHORT).show()
+            } else if (!InternetConnection.isNetworkReacheable(context)) {
+                Toast.makeText(context, "Missing Internet connection!", Toast.LENGTH_SHORT).show()
             } else {
                 searchViewModel?.search(search, activeSearchType)
                     ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })

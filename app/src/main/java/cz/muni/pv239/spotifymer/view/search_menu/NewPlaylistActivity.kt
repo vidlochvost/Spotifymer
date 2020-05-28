@@ -11,7 +11,7 @@ class NewPlaylistActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         if (savedInstanceState != null) {
-            return;
+            return
         }
 
         supportFragmentManager

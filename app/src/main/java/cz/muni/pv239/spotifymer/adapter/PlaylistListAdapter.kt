@@ -1,5 +1,6 @@
 package cz.muni.pv239.spotifymer.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.model.Playlist
+import cz.muni.pv239.spotifymer.util.InternetConnection
 import cz.muni.pv239.spotifymer.view.songs_overview.SongsOverviewActivity
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 
@@ -20,7 +21,6 @@ class PlaylistListAdapter(
     private val playlistViewModel: PlaylistViewModel?
 ) :
     RecyclerView.Adapter<PlaylistCardHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistCardHolder {
         return PlaylistCardHolder(

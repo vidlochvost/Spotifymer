@@ -3,6 +3,7 @@
     package="cz.muni.pv239.spotifymer">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,10 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.songs_overview.SongsOverviewActivity"/>
         <activity android:name=".view.search_menu.NewPlaylistActivity" />
-        <activity android:name=".view.swipe_menu.SwipeOverviewActivity" />
-        <activity android:name=".view.swipe_menu.TopArtistsFragment" />
-        <activity android:name=".view.swipe_menu.PlaylistsFragment" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.main_menu.PlaylistsFragment" />
+        <activity android:name=".view.main_menu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

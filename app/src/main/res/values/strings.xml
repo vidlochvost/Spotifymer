@@ -3,7 +3,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="undo">Undo</string>
-    <string name="recommend">RECOMMEND</string>
+    <string name="recommend">RECOMMEND ME</string>
     <string name="image">image</string>
     <string name="search">SEARCH</string>
     <string name="artist">Artist</string>
@@ -29,4 +29,7 @@
     <string name="searches">Searches</string>
     <string name="yourPlaylists">Your Playlists</string>
     <string name="songs">Songs</string>
+    <string name="download">DOWNLOAD</string>
+    <string name="back">BACK</string>
+    <string name="download_spotify">To use this functionality, please install Spotify app from store.</string>
 </resources>
