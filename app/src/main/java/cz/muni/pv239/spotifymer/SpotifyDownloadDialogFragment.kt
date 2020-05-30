@@ -3,14 +3,9 @@ package cz.muni.pv239.spotifymer
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 class SpotifyDownloadDialogFragment : DialogFragment() {
@@ -23,7 +18,7 @@ class SpotifyDownloadDialogFragment : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.download_spotify)
-                .setPositiveButton(R.string.download) { dialog, id ->
+                .setPositiveButton(R.string.download) { _, _ ->
                     try {
                         val uri = Uri.parse("market://details")
                             .buildUpon()
@@ -41,7 +36,7 @@ class SpotifyDownloadDialogFragment : DialogFragment() {
                         this.startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 }
-                .setNegativeButton(R.string.back) { dialog, id ->
+                .setNegativeButton(R.string.back) { _, _ ->
                     this.activity?.finish()
                 }
             builder.create()

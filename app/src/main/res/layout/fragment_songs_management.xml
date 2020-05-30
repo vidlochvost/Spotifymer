@@ -20,15 +20,17 @@
             app:layout_constraintStart_toEndOf="@+id/songs_recycler_view"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/SongsTextView"
+        <EditText
+            android:id="@+id/playlist_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/songs"
+            android:padding="@dimen/padding_large"
             android:textColor="@color/colorOnPrimary"
             android:textSize="@dimen/text_large"
+            android:inputType="text"
+            android:enabled="false"
+            android:importantForAutofill="no"
             app:layout_constraintEnd_toStartOf="@+id/songs_recycler_view"
             app:layout_constraintStart_toEndOf="@+id/songs_recycler_view"
             app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -39,7 +41,7 @@
             android:layout_height="0dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SongsTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/playlist_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,11 +64,14 @@
                 android:padding="@dimen/padding_medium"
                 android:src="@drawable/baseline_search_black_18dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorSecondary" />
+                android:background="@color/colorSecondary"
+                android:inputType="text"
+                android:hint="@string/enter_search_input"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
 

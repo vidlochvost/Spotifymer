@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.model.Song
 
-@Database(entities = [Playlist::class, Song::class], version = 2, exportSchema = false)
+@Database(entities = [Playlist::class, Song::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
     abstract fun trackDao(): TrackDao
@@ -29,7 +29,9 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "AppDatabase"
-            ).addMigrations(MIGRATION_1_2)
+            )
+                .addMigrations(MIGRATION_1_2)
+                .fallbackToDestructiveMigration()
                 .build()
 
         val MIGRATION_1_2 = object : Migration(1, 2) {

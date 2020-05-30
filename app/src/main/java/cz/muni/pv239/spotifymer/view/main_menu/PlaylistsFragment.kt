@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cz.muni.pv239.spotifymer.adapter.PlaylistCardHolder
 import cz.muni.pv239.spotifymer.adapter.PlaylistListAdapter
 import cz.muni.pv239.spotifymer.databinding.PlaylistsLayoutBinding
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.util.InternetConnection
+import cz.muni.pv239.spotifymer.util.SimpleItemTouchCallback
 import cz.muni.pv239.spotifymer.view.search_menu.NewPlaylistActivity
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
@@ -28,8 +30,6 @@ class PlaylistsFragment : Fragment() {
 
     private var playlistViewModel: PlaylistViewModel? = null
     private var trackViewModel: TrackViewModel? = null
-
-    lateinit var adapter: PlaylistListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,14 +48,18 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initItemTouchHelper()
-
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
 
+        val adapter = PlaylistListAdapter(arrayListOf(), playlistViewModel)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.playlistRecyclerView.layoutManager = layoutManager
+        binding.playlistRecyclerView.adapter = adapter
+        ItemTouchHelper(SimpleItemTouchCallback(adapter)).attachToRecyclerView(binding.playlistRecyclerView)
+
         this.playlistViewModel
             ?.getPlaylists()
-            ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
+            ?.observe(viewLifecycleOwner, Observer { adapter.renderDataset(ArrayList(it) ) })
 
         binding.recommendButton.setOnClickListener {
             if (InternetConnection.isNetworkReacheable(context)) {
@@ -65,30 +69,5 @@ class PlaylistsFragment : Fragment() {
                 Toast.makeText(context, "Missing Internet connection!", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun initItemTouchHelper() {
-        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                adapter.removePlaylist(viewHolder.adapterPosition)
-            }
-        }
-        ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(binding.playlistRecyclerView)
-    }
-
-    private fun renderRecyclerView(playlists: List<Playlist>?) {
-        adapter = PlaylistListAdapter(playlists, playlistViewModel)
-        val layoutManager = LinearLayoutManager(this.context)
-        binding.playlistRecyclerView.layoutManager = layoutManager
-        binding.playlistRecyclerView.adapter = adapter
     }
 }

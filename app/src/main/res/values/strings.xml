@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Spotifymer</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="undo">Undo</string>
     <string name="recommend">RECOMMEND ME</string>
     <string name="image">image</string>
@@ -9,7 +8,6 @@
     <string name="artist">Artist</string>
     <string name="track">Track</string>
     <string name="genre">Genre</string>
-    <string name="inProgress">WORK IN PROGRESS</string>
     <string name="acousticness">Acousticness</string>
     <string name="danceability">Danceability</string>
     <string name="energy">Energy</string>
@@ -29,7 +27,9 @@
     <string name="searches">Searches</string>
     <string name="yourPlaylists">Your Playlists</string>
     <string name="songs">Songs</string>
-    <string name="download">DOWNLOAD</string>
+    <string name="download"><DOWNLOAD></DOWNLOAD></string>
     <string name="back">BACK</string>
     <string name="download_spotify">To use this functionality, please install Spotify app from store.</string>
+    <string name="create">CREATE</string>
+    <string name="enter_search_input">Enter search input</string>
 </resources>

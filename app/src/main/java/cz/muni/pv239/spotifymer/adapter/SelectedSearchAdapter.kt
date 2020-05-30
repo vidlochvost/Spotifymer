@@ -13,10 +13,10 @@ import cz.muni.pv239.spotifymer.model.Search
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 
 class SelectedSearchAdapter(
-    private val searchList: List<Search>?,
+    private var searchList: List<Search>?,
     private val searchViewModel: SearchViewModel?
 ) :
-    RecyclerView.Adapter<SelectedSearchCardHolder>() {
+    RecyclerView.Adapter<SelectedSearchCardHolder>(), CardAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedSearchCardHolder {
         val layout = R.layout.search_attribute_card
@@ -29,16 +29,24 @@ class SelectedSearchAdapter(
     }
 
     override fun onBindViewHolder(holder: SelectedSearchCardHolder, position: Int) {
-        if (searchList?.get(position)?.imgUrl == null) {
+        val item = searchList?.get(position)
+        if (item?.imgUrl == null) {
             holder.image.setImageResource(R.drawable.genre)
         } else {
-            Picasso.get().load(searchList[position].imgUrl).into(holder.image)
+            Picasso.get().load(item.imgUrl).into(holder.image)
         }
-        holder.title.text = searchList?.get(position)?.title
-        holder.type.text = searchList?.get(position)?.type?.name
-        holder.removeButton.setOnClickListener {
-            searchViewModel?.removeSearch(searchList?.get(position)!!)
-        }
+        holder.title.text = item?.primaryText
+        holder.type.text = item?.type?.name
+    }
+
+    override fun removeItem(position: Int) {
+        searchList?.get(position)?.let { searchViewModel?.removeSearch(it) }
+        notifyItemRemoved(position)
+    }
+
+    fun renderDataset(s: List<Search>) {
+        searchList = s
+        notifyDataSetChanged()
     }
 }
 
@@ -46,5 +54,4 @@ class SelectedSearchCardHolder(view: View) : RecyclerView.ViewHolder(view) {
     val image = view.findViewById<ImageView>(R.id.search_result_image)
     val title = view.findViewById<TextView>(R.id.search_title_text)
     val type = view.findViewById<TextView>(R.id.search_type_text)
-    val removeButton = view.findViewById<Button>(R.id.search_remove_button)
 }

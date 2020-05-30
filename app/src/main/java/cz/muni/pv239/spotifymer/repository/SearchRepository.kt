@@ -18,6 +18,7 @@ class SearchRepository {
                 Search(
                     it.images.getOrNull(2)?.url,
                     it.name,
+                    null,
                     it.id,
                     SearchType.ARTIST
                 )
@@ -30,6 +31,7 @@ class SearchRepository {
                 Search(
                     it.album.images.getOrNull(2)?.url,
                     it.name,
+                    it.artists.getOrNull(0)?.name,
                     it.id,
                     SearchType.TRACK
                 )
@@ -39,7 +41,7 @@ class SearchRepository {
     suspend fun searchGenres(pattern: String) = withContext(IO) {
         spotifyApi.browse.getAvailableGenreSeeds().complete()
             .filter { it.contains(pattern) }
-            .map { Search(null, it, it, SearchType.GENRE) }
+            .map { Search(null, it, null, it, SearchType.GENRE) }
     }
 
     suspend fun getRecommendations(

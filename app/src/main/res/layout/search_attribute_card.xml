@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/search_attribute_card_view"
+    android:id="@+id/search_attribute_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_medium">
@@ -27,7 +27,7 @@
             android:layout_height="30dp"
             android:padding="@dimen/padding_small"
             android:textColor="@color/colorOnPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/search_remove_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/search_result_image"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,21 +38,9 @@
             android:padding="@dimen/margin_small"
             android:textColor="@color/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/search_remove_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/search_result_image"
             app:layout_constraintTop_toBottomOf="@+id/search_type_text" />
-
-
-        <Button
-            android:id="@+id/search_remove_button"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:drawableTop="@drawable/baseline_clear_white_18dp"
-            app:cornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

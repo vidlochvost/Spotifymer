@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 
@@ -20,6 +21,7 @@ import cz.muni.pv239.spotifymer.databinding.FragmentRecommendMenuBinding
 import cz.muni.pv239.spotifymer.model.Attribute
 import cz.muni.pv239.spotifymer.model.Search
 import cz.muni.pv239.spotifymer.util.AttributeType
+import cz.muni.pv239.spotifymer.util.SimpleItemTouchCallback
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
@@ -42,13 +44,18 @@ class RecommendMenuFragment : Fragment() {
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
         searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
+        adapter = SelectedSearchAdapter(listOf(), searchViewModel)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.selectedSearchRecyclerView.layoutManager = layoutManager
+        binding.selectedSearchRecyclerView.adapter = adapter
+        ItemTouchHelper(SimpleItemTouchCallback(adapter)).attachToRecyclerView(binding.selectedSearchRecyclerView)
+
         initChips()
         initSeekBars()
-        renderRecyclerView(listOf())
 
         searchViewModel
             ?.getSearches()
-            ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
+            ?.observe(viewLifecycleOwner, Observer { adapter.renderDataset(it) })
 
         binding.addSearchButton.setOnClickListener {
             parentFragmentManager
@@ -112,19 +119,11 @@ class RecommendMenuFragment : Fragment() {
         this.setLayout(binding.tempoChip, binding.tempoLayout)
         this.setLayout(binding.danceabilityChip, binding.danceabilityLayout)
         this.setLayout(binding.valenceChip, binding.valenceLayout)
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun renderRecyclerView(searchList: List<Search>?) {
-        adapter = SelectedSearchAdapter(searchList, searchViewModel)
-        val layoutManager = LinearLayoutManager(this.context)
-        binding.selectedSearchRecyclerView.layoutManager = layoutManager
-        binding.selectedSearchRecyclerView.adapter = adapter
     }
 
     private fun initSeekBar(

@@ -2,6 +2,7 @@ package cz.muni.pv239.spotifymer.view.search_menu
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,17 +43,16 @@ class SearchMenuFragment() : Fragment() {
         searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
         resetSearch()
 
-        binding.searchButton.setOnClickListener {
-            val search = binding.searchBar.text.toString()
-            if (search.isBlank()) {
-                Toast.makeText(context, "Search field is blank!", Toast.LENGTH_SHORT).show()
-            } else if (!InternetConnection.isNetworkReacheable(context)) {
-                Toast.makeText(context, "Missing Internet connection!", Toast.LENGTH_SHORT).show()
-            } else {
-                searchViewModel?.search(search, activeSearchType)
-                    ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
-                hideKeyboard()
+        binding.searchBar.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                search()
+                return@setOnKeyListener true
             }
+            return@setOnKeyListener false
+        }
+
+        binding.searchButton.setOnClickListener {
+            search()
         }
 
         binding.searchArtistsChip.setOnClickListener {
@@ -69,6 +69,18 @@ class SearchMenuFragment() : Fragment() {
         }
     }
 
+    private fun search() {
+        val search = binding.searchBar.text.toString()
+        if (search.isBlank() && activeSearchType != SearchType.GENRE) {
+            Toast.makeText(context, "Search field is blank!", Toast.LENGTH_SHORT).show()
+        } else if (!InternetConnection.isNetworkReacheable(context)) {
+            Toast.makeText(context, "Missing Internet connection!", Toast.LENGTH_SHORT).show()
+        } else {
+            searchViewModel?.search(search, activeSearchType)
+                ?.observe(viewLifecycleOwner, Observer { renderRecyclerView(it) })
+            hideKeyboard()
+        }
+    }
 
 
     override fun onCreateView(
@@ -85,7 +97,7 @@ class SearchMenuFragment() : Fragment() {
     }
 
     private fun renderRecyclerView(searchList: List<Search>?) {
-        adapter = SearchAdapter(searchList, searchViewModel)
+        adapter = SearchAdapter(searchList?.let { ArrayList(it) }, searchViewModel)
         val layoutManager = LinearLayoutManager(this.context)
         binding.searchRecyclerView.layoutManager = layoutManager
         binding.searchRecyclerView.adapter = adapter

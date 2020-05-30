@@ -9,13 +9,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import cz.muni.pv239.spotifymer.R
 import cz.muni.pv239.spotifymer.model.Search
 import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 
 class SearchAdapter(
-    private val searchList: List<Search>?,
+    private val searchList: ArrayList<Search>?,
     private val searchViewModel: SearchViewModel?
 ) :
     RecyclerView.Adapter<SearchCardHolder>() {
@@ -36,15 +37,19 @@ class SearchAdapter(
         } else {
             Picasso.get().load(searchList[position].imgUrl).into(holder.image)
         }
-        holder.title.text = searchList?.get(position)?.title
-        holder.addButton.setOnClickListener {
-            searchViewModel?.addSearch(searchList?.get(position)!!)
+        holder.primaryText.text = searchList?.get(position)?.primaryText
+        searchList?.get(position)?.secondaryText?.let { holder.secondaryText.text = it }
+        holder.searchCard.setOnClickListener {
+            searchList?.get(position)?.let { it1 -> searchViewModel?.addSearch(it1) }
+            searchList?.remove(searchList[position])
+            notifyDataSetChanged()
         }
     }
 }
 
 class SearchCardHolder(view: View) : RecyclerView.ViewHolder(view) {
     val image = view.findViewById<ImageView>(R.id.result_image)
-    val title = view.findViewById<TextView>(R.id.title_text)
-    val addButton = view.findViewById<Button>(R.id.add_button)
+    val primaryText = view.findViewById<TextView>(R.id.primary_text)
+    val secondaryText = view.findViewById<TextView>(R.id.secondary_text)
+    val searchCard = view.findViewById<MaterialCardView>(R.id.search_card)
 }

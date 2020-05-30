@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spotifymer</string>
+    <string name="undo">Naspäť</string>
+    <string name="recommend">ODPORÚČ MI</string>
+    <string name="image">obrázok</string>
+    <string name="search">VYHĽADAJ</string>
+    <string name="artist">Umelec</string>
+    <string name="track">Skladba</string>
+    <string name="genre">Žáner</string>
+    <string name="acousticness">Akusticita</string>
+    <string name="danceability">Tanečnosť</string>
+    <string name="energy">Energickosť</string>
+    <string name="instrumentalness">Inštrumentálnosť</string>
+    <string name="liveness">Živosť</string>
+    <string name="loudness">Hlasnosť</string>
+    <string name="popularity">Popularita</string>
+    <string name="tempo">Tempo</string>
+    <string name="album_icon">Ikona albumu</string>
+    <string name="new_playlist">Nový playlist</string>
+    <string name="defaultEnergy">0.5</string>
+    <string name="defaultTempo">125</string>
+    <string name="defaultValence">0.5</string>
+    <string name="defaultDanceability">0.5</string>
+    <string name="searches">Vyhľadávania</string>
+    <string name="yourPlaylists">Tvoje playlisty</string>
+    <string name="songs">Skladby</string>
+    <string name="download">STIAHNI</string>
+    <string name="back">NASPÄŤ</string>
+    <string name="download_spotify">Pre využívanie tejto funkcionality si prosím nainštalujte aplikáciu Spotify</string>
+    <string name="create">VYTVOR</string>
+    <string name="enter_search_input">Zadaj vstup pre vyhľadávanie</string>
+    <string name="speechiness">Hovorenosť</string>
+    <string name="valence">Mocnosť</string>
+</resources>

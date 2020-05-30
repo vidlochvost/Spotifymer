@@ -1,18 +1,19 @@
 package cz.muni.pv239.spotifymer.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
 
-@Entity( tableName = "tracks",
+@Entity(
+    tableName = "tracks",
+    indices = [Index("playlist_id")],
     foreignKeys = [ForeignKey(
-    entity = Playlist::class,
-    parentColumns = ["id"],
-    childColumns = ["playlist_id"],
-    onDelete = CASCADE)])
-data class Song (
+        entity = Playlist::class,
+        parentColumns = ["id"],
+        childColumns = ["playlist_id"],
+        onDelete = CASCADE
+    )]
+)
+data class Song(
     @ColumnInfo(name = "playlist_id") var playlistId: Long,
     @ColumnInfo(name = "image_url") var imageUrl: String?,
     @ColumnInfo(name = "name") var name: String,

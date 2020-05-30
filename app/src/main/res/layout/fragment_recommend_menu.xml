@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -36,12 +34,14 @@
                     android:padding="@dimen/padding_medium"
                     android:src="@drawable/baseline_album_black_18dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/album_name_input"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorSecondary"
-                    android:hint="@string/new_playlist" />
+                    android:inputType="text"
+                    android:hint="@string/new_playlist"
+                    android:importantForAutofill="no" />
             </LinearLayout>
 
             <TextView
@@ -282,14 +282,13 @@
 
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/search_recommendations_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginVertical="15dp"
-        android:backgroundTint="@color/colorPrimaryVariant"
-        app:srcCompat="@drawable/baseline_add_white_18dp"
-        app:tint="@color/colorOnPrimary" />
+        android:padding="@dimen/margin_medium"
+        android:text="@string/create"
+        app:cornerRadius="20dp" />
 
 </FrameLayout>
