@@ -27,6 +27,7 @@
     <string name="searches">Searches</string>
     <string name="yourPlaylists">Your Playlists</string>
     <string name="songs">Songs</string>
+<!--    Chyba ve stringu -->
     <string name="download"><DOWNLOAD></DOWNLOAD></string>
     <string name="back">BACK</string>
     <string name="download_spotify">To use this functionality, please install Spotify app from store.</string>

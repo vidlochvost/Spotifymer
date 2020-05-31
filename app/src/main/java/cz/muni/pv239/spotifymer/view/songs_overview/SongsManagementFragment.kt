@@ -109,7 +109,7 @@ class SongsManagementFragment(
     }
 
     private fun showKeyboard() {
-        val im = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val im = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager     // Muze spadnout, kdyz bude activity null
         im.showSoftInput(binding.playlistName, InputMethodManager.SHOW_IMPLICIT)
     }
 

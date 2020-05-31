@@ -26,7 +26,7 @@ class PlaylistListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return playlists?.size!!
+        return playlists?.size!!        // Ukazkovy mozny crash. Neco je nullable a rikas, ze to nikdy nebude null. Pokud nebude, nemelo by to byt nullable
     }
 
     override fun onBindViewHolder(holder: PlaylistCardHolder, position: Int) {
@@ -39,7 +39,7 @@ class PlaylistListAdapter(
             if (id != null) {
                 val intent = Intent(view.context, SongsOverviewActivity::class.java)
                 intent.putExtra("PLAYLIST_ID", id)
-                view.context.startActivity(intent)
+                view.context.startActivity(intent)      // Tady by se mel spis zavolat Fragment a on by mel reagovat spustenim aktivity (architektura, nereste, jen pro zajimavost)
             }
         }
     }
