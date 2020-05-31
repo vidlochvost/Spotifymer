@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
+// Nevidim, ze by se nekde pouzivalo
 class SpotifyDownloadDialogFragment : DialogFragment() {
 
     val appPackageName = "com.spotify.music"

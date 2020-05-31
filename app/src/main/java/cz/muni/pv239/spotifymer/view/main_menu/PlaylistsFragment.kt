@@ -48,12 +48,13 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // requireActivity() zpusobi, ze pokud aktivita v ten moment uz neni, crashne vam appka. A to se muze snadno stat.
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
 
         val adapter = PlaylistListAdapter(arrayListOf(), playlistViewModel)
         val layoutManager = LinearLayoutManager(this.context)
-        binding.playlistRecyclerView.layoutManager = layoutManager
+        binding.playlistRecyclerView.layoutManager = layoutManager      // LinearLayoutManager je mozne pridat i primo v XML
         binding.playlistRecyclerView.adapter = adapter
         ItemTouchHelper(SimpleItemTouchCallback(adapter)).attachToRecyclerView(binding.playlistRecyclerView)
 
