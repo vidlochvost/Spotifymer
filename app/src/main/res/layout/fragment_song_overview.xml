@@ -18,15 +18,6 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/play_button"
-            app:icon="@drawable/baseline_play_arrow_white_18dp"
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_margin="15dp"
-            app:cornerRadius="1000dp"/>
-
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -46,5 +37,14 @@
             android:textSize="@dimen/text_large"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="15dp"
+        android:text="@string/play"
+        app:cornerRadius="20dp"/>
 
 </FrameLayout>

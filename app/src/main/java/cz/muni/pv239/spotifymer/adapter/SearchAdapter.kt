@@ -3,10 +3,7 @@ package cz.muni.pv239.spotifymer.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
@@ -32,17 +29,26 @@ class SearchAdapter(
     }
 
     override fun onBindViewHolder(holder: SearchCardHolder, position: Int) {
-        if (searchList?.get(position)?.imgUrl == null) {
+        val item = searchList?.get(position)
+
+        if (item?.imgUrl == null) {
             holder.image.setImageResource(R.drawable.genre)
         } else {
-            Picasso.get().load(searchList[position].imgUrl).into(holder.image)
+            Picasso.get().load(item.imgUrl).into(holder.image)
         }
-        holder.primaryText.text = searchList?.get(position)?.primaryText
-        searchList?.get(position)?.secondaryText?.let { holder.secondaryText.text = it }
+        holder.primaryText.text = item?.primaryText
+        item?.secondaryText?.let { holder.secondaryText.text = it }
         holder.searchCard.setOnClickListener {
-            searchList?.get(position)?.let { it1 -> searchViewModel?.addSearch(it1) }
-            searchList?.remove(searchList[position])
-            notifyDataSetChanged()
+            if (item != null) {
+                val result = searchViewModel?.addSearch(item)
+                if (result == true) {
+                    searchList?.remove(searchList[position])
+                    Toast.makeText(it.context, "Added!", Toast.LENGTH_SHORT).show()
+                    notifyDataSetChanged()
+                } else {
+                    Toast.makeText(it.context, "Reached search maximum!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

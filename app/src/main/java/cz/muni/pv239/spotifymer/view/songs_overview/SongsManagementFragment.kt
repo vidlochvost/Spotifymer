@@ -2,7 +2,6 @@ package cz.muni.pv239.spotifymer.view.songs_overview
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,13 +15,15 @@ import com.squareup.picasso.Picasso
 
 import cz.muni.pv239.spotifymer.adapter.SongListAdapter
 import cz.muni.pv239.spotifymer.databinding.FragmentSongsManagementBinding
-import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.model.Song
 import cz.muni.pv239.spotifymer.util.RandomCover
+import cz.muni.pv239.spotifymer.util.SpotifyWebApi
 import cz.muni.pv239.spotifymer.view_model.PlaylistViewModel
 import cz.muni.pv239.spotifymer.view_model.TrackViewModel
 
-class SongsManagementFragment(private val playlistId: Long) : Fragment() {
+class SongsManagementFragment(
+    private val playlistId: Long
+) : Fragment() {
 
     private var _binding: FragmentSongsManagementBinding? = null
     private val binding get() = _binding!!
@@ -31,6 +32,8 @@ class SongsManagementFragment(private val playlistId: Long) : Fragment() {
     private var trackViewModel: TrackViewModel? = null
 
     lateinit var adapter: SongListAdapter
+
+    private val spotifyApi = SpotifyWebApi.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,19 +55,17 @@ class SongsManagementFragment(private val playlistId: Long) : Fragment() {
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         trackViewModel = ViewModelProvider(requireActivity()).get(TrackViewModel::class.java)
 
-        /*
-        binding.playlistName.setOnLongClickListener {
-            binding.playlistName.inputType = InputType.TYPE_CLASS_TEXT
-            binding.playlistName.isFocusable = true
-            binding.playlistName.requestFocus()
+
+        binding.playlistName.setOnClickListener {
             showKeyboard()
-            true
-        }*/
+            binding.playlistName.requestFocus()
+        }
+
 
         binding.playlistName.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                binding.playlistName.clearFocus()
                 hideKeyboard()
-                binding.playlistName.isEnabled = false
                 this.playlistViewModel?.getPlaylist(playlistId)?.observe(
                     viewLifecycleOwner,
                     Observer { playlist ->
@@ -81,15 +82,7 @@ class SongsManagementFragment(private val playlistId: Long) : Fragment() {
             ?.observe(viewLifecycleOwner, Observer { songs ->
                 renderRecyclerView(songs)
                 binding.image.setOnClickListener {
-                    (activity as SongsOverviewActivity).spotifyRemote
-                        .spotifyAppRemote?.let {
-                            if (it.isConnected) {
-                                it.playerApi?.play(songs[0].spotifyUrl)
-                                for (i in 1 until songs.size) {
-                                    it.playerApi.queue(songs[i].spotifyUrl)
-                                }
-                            }
-                        }
+                    // TODO shuffle playlist
                 }
             })
 

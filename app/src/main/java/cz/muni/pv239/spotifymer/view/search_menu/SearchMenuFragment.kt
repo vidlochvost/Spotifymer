@@ -24,8 +24,6 @@ import cz.muni.pv239.spotifymer.view_model.SearchViewModel
 
 class SearchMenuFragment() : Fragment() {
 
-    lateinit var api: SpotifyAppApi
-
     private var searchViewModel: SearchViewModel? = null
 
     private var _binding: FragmentSearchBinding? = null
@@ -37,8 +35,6 @@ class SearchMenuFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        api = SpotifyWebApi.getInstance()
 
         searchViewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
         resetSearch()

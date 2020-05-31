@@ -32,4 +32,5 @@
     <string name="download_spotify">To use this functionality, please install Spotify app from store.</string>
     <string name="create">CREATE</string>
     <string name="enter_search_input">Enter search input</string>
+    <string name="play">PLAY</string>
 </resources>

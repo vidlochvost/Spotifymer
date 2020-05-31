@@ -33,11 +33,12 @@ class SearchViewModel : ViewModel() {
         return attributes
     }
 
-    fun addSearch(search: Search) {
+    fun addSearch(search: Search): Boolean {
         if (searchList.size == 5) {
-            return
+            return false
         }
         searchList.add(search)
+        return true
     }
 
     fun removeSearch(artist: Search) {

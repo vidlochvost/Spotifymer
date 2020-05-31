@@ -29,8 +29,8 @@
             android:textColor="@color/colorOnPrimary"
             android:textSize="@dimen/text_large"
             android:inputType="text"
-            android:enabled="false"
             android:importantForAutofill="no"
+            android:background="@null"
             app:layout_constraintEnd_toStartOf="@+id/songs_recycler_view"
             app:layout_constraintStart_toEndOf="@+id/songs_recycler_view"
             app:layout_constraintTop_toBottomOf="@+id/image" />

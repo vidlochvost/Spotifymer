@@ -38,7 +38,7 @@ class SpotifyDownloadDialogFragment : DialogFragment() {
                 }
                 .setNegativeButton(R.string.back) { _, _ ->
                     this.activity?.finish()
-                }
+                }.setCancelable(false)
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

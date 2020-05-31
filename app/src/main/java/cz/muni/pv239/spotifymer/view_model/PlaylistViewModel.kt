@@ -2,6 +2,7 @@ package cz.muni.pv239.spotifymer.view_model
 
 import android.app.Application
 import androidx.lifecycle.*
+import cz.muni.pv239.spotifymer.database.NameGenerator
 import cz.muni.pv239.spotifymer.model.Playlist
 import cz.muni.pv239.spotifymer.repository.PlaylistRepository
 import cz.muni.pv239.spotifymer.util.RandomCover
@@ -10,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var repository= PlaylistRepository(application)
+    private var repository = PlaylistRepository(application)
 
     fun getPlaylists(): LiveData<List<Playlist>>? {
         return repository.getPlaylists()
@@ -29,9 +30,13 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun newPlaylist(playlistName: String): LiveData<Long>? {
+        var name = playlistName
+        if (playlistName.isBlank()) {
+            name = NameGenerator.generate()
+        }
         return setPlaylist(
             Playlist(
-                playlistName,
+                name,
                 RandomCover.generate()
             )
         )
