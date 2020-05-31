@@ -1,2 +1,2 @@
-include ':app', ':spotify-app-remote', ':spotify-auth'
+include ':app'
 rootProject.name='Spotifymer'
