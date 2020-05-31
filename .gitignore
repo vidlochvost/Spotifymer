@@ -86,3 +86,6 @@ lint/tmp/
 
 # credentials
 credentials/
+
+*.pptx
+klic/
